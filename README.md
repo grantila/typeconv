@@ -9,7 +9,9 @@
 
 **typeconv** is an extremely fast *silver bullet* type conversion utility.
 
-Convert between type systems which have [`core-types`][core-types-github-url] converters, such as JSON Schema, TypeScript, GraphQL and Open API. This package can be used as an API programatically or as an application (installed in `node_modules/.bin` or by using e.g. [`npx`](https://www.npmjs.com/package/npx)).
+It converts between any of its supported types, bidirectionally.
+
+typeconv between type systems which have [`core-types`][core-types-github-url] converters, such as JSON Schema, TypeScript, GraphQL and Open API. This package can be used as an API programatically or as an application (installed in `node_modules/.bin` or by using e.g. [`npx`](https://www.npmjs.com/package/npx)).
 
 By taking advantage of the [`core-types`][core-types-github-url] ([npm][core-types-npm-url]) toolbox for generic type handling, typeconv can convert and maintain source code location information, comments, descriptions etc. when converting between the different type systems. It is using the following converter packages:
  * [`core-types-json-schema`][core-types-json-schema-github-url] ([npm][core-types-json-schema-npm-url])
@@ -144,7 +146,7 @@ The types supported are `gql` (GraphQL), `ts` (TypeScript), `jsc` (JSON Schema) 
 <summary><code>$ typeconv --help</code></summary>
 <p>
 
-```sh
+```
 Usage: typeconv [options] file ...
 
    Options:
@@ -307,7 +309,7 @@ const writer = getJsonSchemaWriter( );
 
 They don't have any options.
 
-`typeconv` expects the JSON Schema to contain **definitions**, i.e. to be in the form:
+typeconv expects the JSON Schema to contain **definitions**, i.e. to be in the form:
 
 <details style="padding-left: 32px;border-left: 4px solid gray;">
 <summary>JSON Schema</summary>
@@ -336,7 +338,7 @@ They don't have any options.
 </p>
 </details>
 
-`typeconv` doesn't support external references (to other files). If you have that, you need to use a reference parser and merge it into one inline-referenced file before using typeconv.
+typeconv doesn't support external references (to other files). If you have that, you need to use a reference parser and merge it into one inline-referenced file before using typeconv.
 
 
 ### Open API
@@ -385,11 +387,11 @@ const writer = getTypeScriptWriter( );
 Both these take an optional argument.
 
 The `getTypeScriptReader` takes an optional
-[`FromTsOptions`][https://github.com/grantila/core-types-ts#typescript-to-core-types]
+[`FromTsOptions`](https://github.com/grantila/core-types-ts#typescript-to-core-types)
 object from [`core-types-ts`][core-types-ts-github-url], although `warn` isn't necessary since it's set by typeconv internally.
 
 The `getTypeScriptWriter` takes an optional
-[`ToTsOptions`][https://github.com/grantila/core-types-ts#core-types-to-typescript]
+[`ToTsOptions`](https://github.com/grantila/core-types-ts#core-types-to-typescript)
 object from [`core-types-ts`][core-types-ts-github-url], although `warn`, `filename`, `sourceFilename`, `userPackage` and `userPackageUrl` aren't necessary since they're set by typeconv internally.
 
 
@@ -407,11 +409,11 @@ const writer = getGraphQLWriter( );
 Both these take an optional argument.
 
 The `getGraphQLReader` takes an optional
-[`GraphqlToCoreTypesOptions`][https://github.com/grantila/core-types-graphql#graphql-to-core-types]
+[`GraphqlToCoreTypesOptions`](https://github.com/grantila/core-types-graphql#graphql-to-core-types)
 object from [`core-types-graphql`][core-types-graphql-github-url], although `warn` isn't necessary since it's set by typeconv internally.
 
 The `getGraphQLWriter` takes an optional
-[`CoreTypesToGraphqlOptions`][https://github.com/grantila/core-types-graphql#core-types-to-graphql]
+[`CoreTypesToGraphqlOptions`](https://github.com/grantila/core-types-graphql#core-types-to-graphql)
 object from [`core-types-graphql`][core-types-graphql-github-url], although `warn`, `filename`, `sourceFilename`, `userPackage` and `userPackageUrl` aren't necessary since they're set by typeconv internally.
 
 
