@@ -12,14 +12,14 @@
 
 It converts between any of its supported types, bidirectionally.
 
-typeconv between type systems which have [`core-types`][core-types-github-url] converters, such as JSON Schema, TypeScript, GraphQL and Open API. This package can be used as an API programatically or as an application (installed in `node_modules/.bin` or by using e.g. [`npx`](https://www.npmjs.com/package/npx)).
+typeconv lets you convert between type systems which have [`core-types`][core-types-github-url] converters, such as JSON Schema, TypeScript, GraphQL and Open API. This package can be used as an API programatically or as an application (installed in `node_modules/.bin` or by using e.g. [`npx`](https://www.npmjs.com/package/npx)).
 
 By taking advantage of the [`core-types`][core-types-github-url] ([npm][core-types-npm-url]) toolbox for generic type handling, typeconv can convert and maintain source code location information, comments, descriptions etc. when converting between the different type systems. It is using the following converter packages:
  * [`core-types-json-schema`][core-types-json-schema-github-url] ([npm][core-types-json-schema-npm-url])
  * [`core-types-ts`][core-types-ts-github-url] ([npm][core-types-ts-npm-url])
  * [`core-types-graphql`][core-types-graphql-github-url] ([npm][core-types-graphql-npm-url])
 
-These type systems don't share the same set of types and constraints. For example, JSON Schema has *value* constraints (like *"a string must be larger than 5 characters*") and GraphQL doesn't have `null` or key-value objects as a first-class type. Convertions will therefore produce the smallest common denominator of type information, but still be very useful. See [`core-types`][core-types-github-url] for more information on its supported types, and why not implement a new conversion package yourself!
+These type systems don't share the same set of types and constraints. For example, JSON Schema has *value* constraints (like *"a string must be longer than 5 characters*") and GraphQL doesn't have `null` or key-value objects as a first-class type. Convertions will therefore produce the smallest common denominator of type information, but still be very useful. See [`core-types`][core-types-github-url] for more information on its supported types, and why not implement a new conversion package yourself!
 
 
 # TL;DR CLI
