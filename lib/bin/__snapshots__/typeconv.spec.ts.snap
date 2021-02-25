@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli should convert typescript to graphql 1`] = `
+"# The file types1.graphql was auto-generated from fixtures/types1.ts using
+# core-types-graphql (https://github.com/grantila/core-types-graphql)
+# on behalf of
+# typeconv (https://github.com/grantila/typeconv)
+
+type Foo {
+  bar: String!
+}
+
+type Foo2 {
+  bak: [Boolean!]!
+}
+"
+`;
+
+exports[`cli should convert typescript to graphql 2`] = `
+"# The file sub/types2.graphql was auto-generated from fixtures/sub/types2.ts using
+# core-types-graphql (https://github.com/grantila/core-types-graphql)
+# on behalf of
+# typeconv (https://github.com/grantila/typeconv)
+
+type SubDirType {
+  name: String!
+}
+"
+`;

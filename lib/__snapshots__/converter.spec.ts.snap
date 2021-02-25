@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`converter json-schema-to-ts self-reading and writing JSON Schema 1`] = `
+"export type foo = string;
+"
+`;
+
+exports[`converter shortcut should run shortcut if possible 1`] = `
+"openapi: 3.0.0
+info:
+  title: Title
+  version: '1'
+paths: {}
+components:
+  schemas:
+    foo:
+      type: string
+"
+`;
