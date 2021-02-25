@@ -1,7 +1,7 @@
 {
   "name": "typeconv",
   "version": "0.0.0-development",
-  "description": "Convert between JSON Schema, TypeScript and GraphQL",
+  "description": "Convert between JSON Schema, TypeScript, GraphQL and Open API",
   "author": "Gustaf Räntilä",
   "license": "MIT",
   "bugs": {

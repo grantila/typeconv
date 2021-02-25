@@ -2,6 +2,7 @@
 [![downloads][downloads-image]][npm-url]
 [![build status][build-image]][build-url]
 [![coverage status][coverage-image]][coverage-url]
+[![Language grade: JavaScript][lgtm-image]][lgtm-url]
 [![Node.JS version][node-version]][node-url]
 
 
@@ -424,6 +425,8 @@ object from [`core-types-graphql`][core-types-graphql-github-url], although `war
 [build-url]: https://github.com/grantila/typeconv/actions?query=workflow%3AMaster
 [coverage-image]: https://coveralls.io/repos/github/grantila/typeconv/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/grantila/typeconv?branch=master
+[lgtm-image]: https://img.shields.io/lgtm/grade/javascript/g/grantila/typeconv.svg?logo=lgtm&logoWidth=18
+[lgtm-url]: https://lgtm.com/projects/g/grantila/typeconv/context:javascript
 [node-version]: https://img.shields.io/node/v/typeconv
 [node-url]: https://nodejs.org/en/
 
