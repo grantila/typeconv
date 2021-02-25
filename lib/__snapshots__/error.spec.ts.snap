@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`error formatCoreTypesError should display nice error message 1`] = `
+"> 1 | type X = bad type;
+    |             ^^^^ [Error] foo error"
+`;
+
+exports[`error formatError should properly display errors 1`] = `
+"> 1 | type X = bad type;
+    |             ^^^^ foo message"
+`;

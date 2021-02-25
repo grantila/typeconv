@@ -1,0 +1,68 @@
+{
+  "name": "typeconv",
+  "version": "0.0.0-development",
+  "description": "Convert between JSON Schema, TypeScript and GraphQL",
+  "author": "Gustaf Räntilä",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grantila/typeconv/issues"
+  },
+  "homepage": "https://github.com/grantila/typeconv#readme",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "directories": {},
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": "dist/bin/typeconv.js",
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.prod.json",
+    "test": "jest --coverage",
+    "cz": "git-cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grantila/typeconv"
+  },
+  "keywords": [
+    "convert",
+    "types",
+    "json",
+    "schema",
+    "typescript",
+    "graphql"
+  ],
+  "devDependencies": {
+    "@types/babel__code-frame": "^7.0.2",
+    "@types/jest": "^26.0.20",
+    "@types/js-yaml": "^4.0.0",
+    "@types/node": "^14.14.31",
+    "cz-conventional-changelog": "^3.1.0",
+    "execa": "^5.0.0",
+    "jest": "^26.6.3",
+    "rimraf": "^3.0.1",
+    "tempy": "^1.0.0",
+    "ts-jest": "^26.5.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  },
+  "dependencies": {
+    "@babel/code-frame": "^7.12.13",
+    "already": "^1.13.2",
+    "core-types": "^1.4.0",
+    "core-types-graphql": "^1.2.0",
+    "core-types-json-schema": "^1.4.1",
+    "core-types-ts": "^1.1.0",
+    "globby": "^11.0.2",
+    "js-yaml": "^4.0.0",
+    "oppa": "^0.3.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

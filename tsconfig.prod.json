@@ -1,0 +1,14 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"sourceMap": false,
+		"outDir": "dist",
+		"noEmit": false
+	},
+	"include": [
+		"lib"
+	],
+	"exclude": [
+		"**/*.spec.ts"
+	]
+}
