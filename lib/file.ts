@@ -1,6 +1,8 @@
 import { promises as fsPromises } from 'fs'
 import * as path from 'path'
 import * as globby from 'globby'
+import { bold } from 'chalk'
+import * as terminalLink from "terminal-link"
 
 
 export interface SourceFile
@@ -159,4 +161,17 @@ export function reRootFiles(
 				return { in: filename, out, rel };
 			} ),
 	};
+}
+
+export function prettyFile( filename: string, cwd: string )
+{
+	const absFile = 'file://' + ensureAbsolute( filename, cwd );
+	const baseName = path.basename( filename );
+	const dirName = path.dirname( filename );
+
+	const name =
+		( ( dirName && dirName !== '.' ) ? ( dirName + path.sep ) : '' ) +
+		bold( baseName );
+
+	return terminalLink( name, absFile, { fallback: false } );
 }

@@ -1,10 +1,10 @@
 import * as path from 'path'
 
 import { map } from "already"
+import { hex, gray } from "chalk"
 
 import { Converter, Target } from "./converter"
-import { glob, reRootFiles } from './file'
-
+import { glob, reRootFiles, prettyFile } from './file'
 
 export interface BatchConvertOptions
 {
@@ -92,8 +92,17 @@ export async function batchConvert(
 					? 'no'
 					: `${Math.round( converted * 100 / allInputTypes )}%`;
 
+				const prefixText = '[typeconv]';
+				const prefix =
+					allInputTypes === 0
+					? gray( prefixText )
+					: notConverted
+					? hex( '#D2D200' )( prefixText )
+					: hex( '#00D21F' )( prefixText );
+
 				console.error(
-					`Converted ${rel} -> ${outName}, ${percent} types ` +
+					`${prefix} ${prettyFile( rel, root )} -> ` +
+					`${prettyFile( outName, newRoot )}, ${percent} types ` +
 					`converted (${converted}/${allInputTypes})` +
 					( !notConverted ? '' : `, ${notConverted} rejected` )
 				);

@@ -52,13 +52,15 @@
   "dependencies": {
     "@babel/code-frame": "^7.12.13",
     "already": "^1.13.2",
+    "chalk": "^4.1.0",
     "core-types": "^1.4.0",
     "core-types-graphql": "^1.2.0",
     "core-types-json-schema": "^1.4.1",
     "core-types-ts": "^1.1.0",
     "globby": "^11.0.2",
     "js-yaml": "^4.0.0",
-    "oppa": "^0.3.3"
+    "oppa": "^0.3.3",
+    "terminal-link": "^2.1.1"
   },
   "config": {
     "commitizen": {
