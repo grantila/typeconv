@@ -53,12 +53,12 @@ describe( "converter", ( ) =>
 	describe( "warn", ( ) =>
 	{
 		it( "should invoke warn function when present", withConsoleWarn(
-			async ( consoleWarn ) =>
+			async ( { warn } ) =>
 		{
-			const warn = jest.fn( );
+			const warnFn = jest.fn( );
 			const { convert } = makeConverter(
 				getJsonSchemaReader( ),
-				getGraphQLWriter( { warn } ),
+				getGraphQLWriter( { warn: warnFn } ),
 			);
 			const example = {
 				definitions: {
@@ -67,15 +67,15 @@ describe( "converter", ( ) =>
 			};
 			await convert( { data: JSON.stringify( example, null, 4 ) } );
 
-			expect( warn ).toHaveBeenCalledWith(
+			expect( warnFn ).toHaveBeenCalledWith(
 				"Type 'null' not supported",
 				expect.any( Error )
 			);
-			expect( consoleWarn ).toHaveBeenCalledTimes( 0 );
+			expect( warn ).toHaveBeenCalledTimes( 0 );
 		} ) );
 
 		it( "should invoke console.warn by default", withConsoleWarn(
-			async ( consoleWarn ) =>
+			async ( { warn } ) =>
 		{
 			const { convert } = makeConverter(
 				getJsonSchemaReader( ),
@@ -88,7 +88,7 @@ describe( "converter", ( ) =>
 			};
 			await convert( { data: JSON.stringify( example, null, 4 ) } );
 
-			expect( consoleWarn ).toHaveBeenCalledWith(
+			expect( warn ).toHaveBeenCalledWith(
 				"Type 'null' not supported"
 			);
 		} ) );

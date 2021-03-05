@@ -1,6 +1,8 @@
 import { promises as fsPromises } from "fs"
 import * as globby from "globby"
 
+process.env.FORCE_HYPERLINK = "1";
+
 import {
 	getSource,
 	relFile,
@@ -9,6 +11,7 @@ import {
 	ensureAbsolute,
 	getRootFolderOfFiles,
 	reRootFiles,
+	prettyFile,
 } from "./file"
 
 jest.mock( "fs", ( ) => ( {
@@ -148,5 +151,11 @@ describe( "file", ( ) =>
 			root: "/x1/y1/a",
 			newRoot: "/x2/y2/new",
 		} );
+	} );
+
+	it( "", ( ) =>
+	{
+		const text = prettyFile( "foo/file.name", "/the/root" );
+		expect( text ).toMatchSnapshot( );
 	} );
 } );

@@ -20,7 +20,7 @@
   "bin": "dist/bin/typeconv.js",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.prod.json",
-    "test": "jest --coverage",
+    "test": "CI=1 jest --coverage",
     "cz": "git-cz"
   },
   "repository": {

@@ -2,10 +2,9 @@ import * as path from 'path'
 
 import { batchConvert, batchConvertGlob } from './batch-convert'
 import { Converter, makeConverter } from './converter'
-import { withConsoleLog } from '../test/utils'
+import { withConsoleLog, withConsoleMock } from '../test/utils'
 import { getTypeScriptReader } from './convert-typescript'
 import { getJsonSchemaWriter } from './convert-json-schema'
-
 
 const fixtureDir = path.join( __dirname, '..', 'fixtures' );
 
@@ -18,7 +17,7 @@ function makeMockConverter( ): Converter
 
 describe( "batch-convert", ( ) =>
 {
-	it( "batchConvert", withConsoleLog( async ( logMock ) =>
+	it( "batchConvert", withConsoleLog( async ( { log } ) =>
 	{
 		const converter = makeMockConverter( );
 		await batchConvert(
@@ -33,15 +32,50 @@ describe( "batch-convert", ( ) =>
 			}
 		);
 
-		expect( logMock.mock.calls.length ).toBe( 2 );
-		const types1 = JSON.parse( logMock.mock.calls[ 0 ] );
-		const types2 = JSON.parse( logMock.mock.calls[ 1 ] );
+		expect( log.mock.calls.length ).toBe( 2 );
+		const types1 = JSON.parse( log.mock.calls[ 0 ] );
+		const types2 = JSON.parse( log.mock.calls[ 1 ] );
 
 		expect( types1 ).toMatchSnapshot( );
 		expect( types2 ).toMatchSnapshot( );
 	} ) );
 
-	it( "batchConvertGlob", withConsoleLog( async ( logMock ) =>
+	it( "batchConvert verbose", withConsoleMock( async ( { log, error } ) =>
+	{
+		const converter = makeMockConverter( );
+		await batchConvert(
+			converter,
+			[
+				path.join( fixtureDir, 'types1.ts' ),
+				path.join( fixtureDir, 'sub', 'types2.ts' ),
+			],
+			{
+				outputExtension: '-',
+				concurrency: 1,
+				verbose: true,
+			}
+		);
+
+		expect( log.mock.calls.length ).toBe( 2 );
+		const types1 = JSON.parse( log.mock.calls[ 0 ] );
+		const types2 = JSON.parse( log.mock.calls[ 1 ] );
+
+		expect( types1 ).toMatchSnapshot( );
+		expect( types2 ).toMatchSnapshot( );
+
+		expect( error.mock.calls.length ).toBe( 3 );
+		expect(
+			error.mock.calls
+			.map( ( line, i ) =>
+				i === 0
+				// Absolute local files system, must be aligned with CI/CD
+				? path.basename( line[ 0 ] )
+				: line
+			)
+		).toMatchSnapshot( );
+	}, [ 'log', 'error' ] ) );
+
+	it( "batchConvertGlob", withConsoleLog( async ( { log } ) =>
 	{
 		const converter = makeMockConverter( );
 		await batchConvertGlob(
@@ -54,9 +88,9 @@ describe( "batch-convert", ( ) =>
 			}
 		);
 
-		expect( logMock.mock.calls.length ).toBe( 2 );
-		const types1 = JSON.parse( logMock.mock.calls[ 0 ] );
-		const types2 = JSON.parse( logMock.mock.calls[ 1 ] );
+		expect( log.mock.calls.length ).toBe( 2 );
+		const types1 = JSON.parse( log.mock.calls[ 0 ] );
+		const types2 = JSON.parse( log.mock.calls[ 1 ] );
 
 		expect( types1 ).toMatchSnapshot( );
 		expect( types2 ).toMatchSnapshot( );

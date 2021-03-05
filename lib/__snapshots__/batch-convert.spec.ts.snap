@@ -68,6 +68,86 @@ Object {
 }
 `;
 
+exports[`batch-convert batchConvert verbose 1`] = `
+Object {
+  "$comment": "Generated from types1.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
+  "definitions": Object {
+    "Foo": Object {
+      "additionalProperties": false,
+      "properties": Object {
+        "bar": Object {
+          "type": "string",
+        },
+        "baz": Object {
+          "anyOf": Array [
+            Object {
+              "type": "number",
+            },
+            Object {
+              "$ref": "#/definitions/Foo",
+            },
+          ],
+          "description": "@see baz documentation at http://documentation.yada",
+          "title": "A baz is a number of another Foo",
+        },
+      },
+      "required": Array [
+        "bar",
+        "baz",
+      ],
+      "type": "object",
+    },
+    "Foo2": Object {
+      "additionalProperties": false,
+      "properties": Object {
+        "bak": Object {
+          "items": Object {
+            "type": "boolean",
+          },
+          "type": "array",
+        },
+      },
+      "required": Array [
+        "bak",
+      ],
+      "type": "object",
+    },
+  },
+}
+`;
+
+exports[`batch-convert batchConvert verbose 2`] = `
+Object {
+  "$comment": "Generated from sub/types2.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
+  "definitions": Object {
+    "SubDirType": Object {
+      "additionalProperties": false,
+      "properties": Object {
+        "name": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "name",
+      ],
+      "type": "object",
+    },
+  },
+}
+`;
+
+exports[`batch-convert batchConvert verbose 3`] = `
+Array [
+  "fixtures",
+  Array [
+    "[typeconv] types1.ts -> stdout, 100% types converted (2/2)",
+  ],
+  Array [
+    "[typeconv] sub/types2.ts -> stdout, 100% types converted (1/1)",
+  ],
+]
+`;
+
 exports[`batch-convert batchConvertGlob 1`] = `
 Object {
   "$comment": "Generated from sub/types2.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
