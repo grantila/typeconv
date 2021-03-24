@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`format-graph findAllPaths (incl core-types) 1`] = `
+Array [
+  "ts->{ct}->gql",
+  "ts->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->jsc  jsc->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->jsc  jsc->{jsc}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->oapi  oapi->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->oapi  oapi->{jsc}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->jsc  jsc->{ct}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->jsc  jsc->{jsc}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->oapi  oapi->{ct}->ts  ts->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->oapi  oapi->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->oapi  oapi->{jsc}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->ts  ts->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->ts  ts->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->jsc  jsc->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->jsc  jsc->{jsc}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->oapi  oapi->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->oapi  oapi->{jsc}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->jsc  jsc->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->jsc  jsc->{jsc}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->oapi  oapi->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->oapi  oapi->{jsc}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->ts  ts->{ct}->jsc  jsc->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->ts  ts->{ct}->jsc  jsc->{jsc}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->ts  ts->{ct}->oapi  oapi->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->ts  ts->{ct}->oapi  oapi->{jsc}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->jsc  jsc->{ct}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->jsc  jsc->{jsc}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->oapi  oapi->{ct}->ts  ts->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->oapi  oapi->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{ct}->oapi  oapi->{jsc}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->jsc  jsc->{ct}->ts  ts->{ct}->oapi  oapi->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->jsc  jsc->{ct}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->jsc  jsc->{jsc}->oapi  oapi->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->oapi  oapi->{ct}->ts  ts->{ct}->jsc  jsc->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->oapi  oapi->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+  "ts->{ct}->st  st->{jsc}->oapi  oapi->{jsc}->jsc  jsc->{ct}->ts  ts->{ct}->gql",
+]
+`;
+
+exports[`format-graph findAllPaths (no shortcuts) 1`] = `
+Array [
+  "st->{ct}->oapi",
+  "st->{ct}->gql  gql->{ct}->oapi",
+  "st->{ct}->ts  ts->{ct}->oapi",
+  "st->{ct}->jsc  jsc->{ct}->oapi",
+  "st->{ct}->gql  gql->{ct}->ts  ts->{ct}->oapi",
+  "st->{ct}->gql  gql->{ct}->jsc  jsc->{ct}->oapi",
+  "st->{ct}->ts  ts->{ct}->gql  gql->{ct}->oapi",
+  "st->{ct}->ts  ts->{ct}->jsc  jsc->{ct}->oapi",
+  "st->{ct}->jsc  jsc->{ct}->gql  gql->{ct}->oapi",
+  "st->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->oapi",
+  "st->{ct}->gql  gql->{ct}->ts  ts->{ct}->jsc  jsc->{ct}->oapi",
+  "st->{ct}->gql  gql->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->oapi",
+  "st->{ct}->ts  ts->{ct}->gql  gql->{ct}->jsc  jsc->{ct}->oapi",
+  "st->{ct}->ts  ts->{ct}->jsc  jsc->{ct}->gql  gql->{ct}->oapi",
+  "st->{ct}->jsc  jsc->{ct}->gql  gql->{ct}->ts  ts->{ct}->oapi",
+  "st->{ct}->jsc  jsc->{ct}->ts  ts->{ct}->gql  gql->{ct}->oapi",
+]
+`;
+
+exports[`format-graph findAllPaths (only shortcuts when exist) 1`] = `
+Array [
+  "st->{jsc}->oapi",
+  "st->{jsc}->jsc  jsc->{jsc}->oapi",
+]
+`;
+
+exports[`format-graph findAllPaths (only shortcuts when none exist) 1`] = `Array []`;

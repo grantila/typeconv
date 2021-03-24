@@ -26,8 +26,14 @@ import {
 	getCoreTypesReader,
 	getCoreTypesWriter,
 } from "../convert-core-types"
+import {
+	getSureTypeReader,
+	getSureTypeWriter,
+} from "../convert-suretype"
+import { ExportRefMethod } from 'suretype'
 import { userPackage, userPackageUrl } from "../package"
 import { TypeImplementation } from "../types"
+import { ensureType } from "../utils"
 
 
 const implementations: Array< Record< TypeImplementation, string > >
@@ -36,6 +42,7 @@ const implementations: Array< Record< TypeImplementation, string > >
 		{ jsc: "JSON Schema" } as Record< TypeImplementation, string >,
 		{ gql: "GraphQL" } as Record< TypeImplementation, string >,
 		{ oapi: "Open API" } as Record< TypeImplementation, string >,
+		{ st: "SureType" } as Record< TypeImplementation, string >,
 		{ ct: "core-types" } as Record< TypeImplementation, string >,
 	];
 
@@ -91,8 +98,8 @@ const oppaInstance =
 		type: 'boolean',
 		description: [
 			"Shortcut conversion if possible (bypassing core-types).",
-			"This is possible between JSON Schema and Open API to preserve",
-			"all features which would be erased when going through core-types."
+			"This is possible between SureType, JSON Schema and Open API",
+			"to preserve all features which would otherwise be erased."
 		],
 		default: true,
 		negatable: true,
@@ -206,6 +213,77 @@ const oppaInstance =
 		type: 'string',
 		description: "Open API document version to use in output document.",
 		default: '1',
+	} )
+	.group( {
+		name: "SureType",
+		backgroundColor: '#4f81a0',
+		color: '#fff',
+	} )
+	.add( {
+		name: 'st-ref-method',
+		argumentName: 'method',
+		type: 'string',
+		description: "SureType reference export method",
+		values: [
+			{ "no-refs": "Don't ref anything, inline all types." },
+			{ "provided": "Reference types that are explicitly exported" },
+			{ "ref-all": "Ref all provided types and those with names" },
+		],
+		default: 'provided',
+	} )
+	.add( {
+		name: 'st-inline-types',
+		type: 'boolean',
+		default: true,
+		description: "Inline pretty typescript types aside validator code",
+	} )
+	.add( {
+		name: 'st-export-type',
+		type: 'boolean',
+		description: [
+			"Export the deduced types (or the pretty types,",
+			"depending on --st-inline-types)",
+		],
+		default: true,
+	} )
+	.add( {
+		name: 'st-export-schema',
+		type: 'boolean',
+		description: "Export validator schemas",
+		default: false,
+	} )
+	.add( {
+		name: 'st-export-validator',
+		type: 'boolean',
+		description: "Export regular validators",
+		default: true,
+	} )
+	.add( {
+		name: 'st-export-ensurer',
+		type: 'boolean',
+		description: "Export 'ensurer' validators",
+		default: true,
+	} )
+	.add( {
+		name: 'st-export-type-guard',
+		type: 'boolean',
+		description: "Export type guards (is* validators)",
+		default: true,
+	} )
+	.add( {
+		name: 'st-use-unknown',
+		type: 'boolean',
+		description: "Use 'unknown' type instead of 'any'",
+		default: true,
+	} )
+	.add( {
+		name: 'st-forward-schema',
+		type: 'boolean',
+		description: [
+			"Forward the JSON Schema, and create an untyped validator schema",
+			"with the raw JSON Schema under the hood",
+		],
+		default: false,
 	} );
 
 const result = oppaInstance.parse( );
@@ -241,27 +319,45 @@ const {
 	"oapi-format": oapiFormat,
 	"oapi-title": oapiTitle,
 	"oapi-version": oapiVersion,
+
+	// suretype
+	"st-ref-method": stRefMethod,
+	"st-inline-types": stInlineTypes,
+	"st-export-type": stExportType,
+	"st-export-schema": stExportSchema,
+	"st-export-validator": stExportValidator,
+	"st-export-ensurer": stExportEnsurer,
+	"st-export-type-guard": stExportTypeGuard,
+	"st-use-unknown": stUseUnknown,
+	"st-forward-schema": stForwardSchema,
 } = args;
 
-function ensureTypeSystem( name: string )
-// @ts-ignore
-: name is TypeImplementation
-{
-	if (
-		name === 'ts' ||
-		name === 'jsc' ||
-		name === 'gql' ||
-		name === 'oapi' ||
-		name === 'ct'
-	)
-		return true;
+const typeImplementations = implementations.map( obj =>
+	Object.keys( obj )[ 0 ] as TypeImplementation
+);
 
-	if ( name )
-		console.error( `Invalid type system identifyer "${name}"\n` );
+if ( !ensureType< TypeImplementation >(
+	fromType,
+	'type system identifyer',
+	typeImplementations,
+	printHelp
+) )
+	throw new Error( );
 
-	printHelp( );
-}
-if ( !ensureTypeSystem( fromType ) || !ensureTypeSystem( toType ) )
+if ( !ensureType< TypeImplementation >(
+	toType,
+	'type system identifyer',
+	typeImplementations,
+	printHelp
+) )
+	throw new Error( );
+
+if ( !ensureType< ExportRefMethod | undefined >(
+	stRefMethod,
+	'ref-method',
+	[  'no-refs', 'provided', 'ref-all', undefined ],
+	printHelp
+) )
 	throw new Error( );
 
 const getReader = ( ): Reader =>
@@ -275,6 +371,11 @@ const getReader = ( ): Reader =>
 		: fromType === 'gql'
 		? getGraphQLReader( {
 			unsupported: gqlUnsupported as 'ignore' | 'warn' | 'error',
+		} )
+		: fromType === 'st'
+		? getSureTypeReader( {
+			refMethod: stRefMethod,
+			nameConflict: 'error',
 		} )
 		: getCoreTypesReader( );
 }
@@ -302,6 +403,17 @@ const getWriter = ( ): Writer =>
 		? getGraphQLWriter( {
 			unsupported: gqlUnsupported as 'ignore' | 'warn' | 'error',
 			nullTypeName: gqlNullTypename,
+		} )
+		: toType === 'st'
+		? getSureTypeWriter( {
+			inlineTypes: stInlineTypes,
+			exportType: stExportType,
+			exportSchema: stExportSchema,
+			exportValidator: stExportValidator,
+			exportEnsurer: stExportEnsurer,
+			exportTypeGuard: stExportTypeGuard,
+			useUnknown: stUseUnknown,
+			forwardSchema: stForwardSchema,
 		} )
 		: getCoreTypesWriter( );
 }
@@ -336,6 +448,7 @@ const getWriter = ( ): Writer =>
 					: toType === 'jsc' ? '.json'
 					: toType === 'oapi' ? `.${oapiFormat}`
 					: toType === 'gql' ? '.graphql'
+					: toType === 'st' ? '.ts'
 					: '.json'
 				),
 			verbose,

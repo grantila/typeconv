@@ -9,6 +9,7 @@
 		"lib"
 	],
 	"exclude": [
+		"**/fixtures",
 		"**/*.spec.ts"
 	]
 }

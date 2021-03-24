@@ -1,3 +1,5 @@
+import * as path from 'path'
+
 import { makeConverter } from './converter'
 import {
 	getJsonSchemaReader,
@@ -5,8 +7,12 @@ import {
 	getOpenApiWriter,
 } from './convert-json-schema'
 import { getTypeScriptWriter } from './convert-typescript'
-import { getGraphQLWriter } from './convert-graphql'
+import { getGraphQLReader, getGraphQLWriter } from './convert-graphql'
+import { getSureTypeReader, getSureTypeWriter } from './convert-suretype'
 import { withConsoleWarn } from '../test/utils'
+
+
+const fixturesDir = path.resolve( __dirname, 'fixtures' );
 
 describe( "converter", ( ) =>
 {
@@ -117,6 +123,70 @@ describe( "converter", ( ) =>
 				await convert( { data: JSON.stringify( example, null, 4 ) } );
 
 			expect( out ).toMatchSnapshot( );
+		} );
+
+		it( "should run graph if necessary (st->oapi)", async ( ) =>
+		{
+			const { convert } = makeConverter(
+				getSureTypeReader( ),
+				getOpenApiWriter( {
+					format: 'yaml',
+					title: 'Title',
+					version: '1',
+					schemaVersion: '3.0.0',
+				} ),
+				{ shortcut: true }
+			);
+			const stFile = path.resolve( fixturesDir, 'validator.st.ts' );
+
+			const { data, in: _in, out } =
+				await convert( { filename: stFile, cwd: '/' } );
+
+			const expectedConversionResult = {
+				convertedTypes: [ 'Foo' ],
+				notConvertedTypes: [ ],
+			};
+			expect( _in ).toStrictEqual( expectedConversionResult );
+			expect( out ).toStrictEqual( expectedConversionResult );
+			expect( data ).toMatchSnapshot( );
+		} );
+
+
+		it( "should run graph if necessary (gql->st)", async ( ) =>
+		{
+			const { convert } = makeConverter(
+				getGraphQLReader( ),
+				getSureTypeWriter( { } ),
+				{ shortcut: true }
+			);
+
+			const { data, in: _in, out } =
+				await convert( {
+					data: `
+						"""
+						The Foo type
+						"""
+						type Foo {
+							"""
+							This is the integer thing
+
+							@default 55
+							"""
+							int: Int
+							str: String!
+							"Excellent array of strings"
+							stra: [String!]!
+						}
+					`,
+				} );
+
+			const expectedConversionResult = {
+				convertedTypes: [ 'Foo' ],
+				notConvertedTypes: [ ],
+			};
+			expect( _in ).toStrictEqual( expectedConversionResult );
+			expect( out ).toStrictEqual( expectedConversionResult );
+			expect( data ).toMatchSnapshot( );
 		} );
 	} );
 } );

@@ -12,12 +12,13 @@
 
 It converts between any of its supported types, bidirectionally.
 
-typeconv lets you convert between type systems which have [`core-types`][core-types-github-url] converters, such as JSON Schema, TypeScript, GraphQL and Open API. This package can be used as an API programatically or as an application (installed in `node_modules/.bin` or by using e.g. [`npx`](https://www.npmjs.com/package/npx)).
+typeconv lets you convert between type systems which have [`core-types`][core-types-github-url] converters, such as JSON Schema, TypeScript, GraphQL, Open API and SureType. This package can be used as an API programatically or as an application (installed in `node_modules/.bin` or by using e.g. [`npx`](https://www.npmjs.com/package/npx)).
 
 By taking advantage of the [`core-types`][core-types-github-url] ([npm][core-types-npm-url]) toolbox for generic type handling, typeconv can convert and maintain source code location information, comments, descriptions etc. when converting between the different type systems. It is using the following converter packages:
  * [`core-types-json-schema`][core-types-json-schema-github-url] ([npm][core-types-json-schema-npm-url])
  * [`core-types-ts`][core-types-ts-github-url] ([npm][core-types-ts-npm-url])
  * [`core-types-graphql`][core-types-graphql-github-url] ([npm][core-types-graphql-npm-url])
+ * [`core-types-suretype`][core-types-suretype-github-url] ([npm][core-types-suretype-npm-url])
 
 These type systems don't share the same set of types and constraints. For example, JSON Schema has *value* constraints (like *"a string must be longer than 5 characters*") and GraphQL doesn't have `null` or key-value objects as a first-class type. Convertions will therefore produce the smallest common denominator of type information, but still be very useful. See [`core-types`][core-types-github-url] for more information on its supported types, and why not implement a new conversion package yourself!
 
@@ -35,6 +36,11 @@ This generates `gql-schemas/*.graphql` for each `.ts` file in `types/` (and sub-
 *Note that when using glob patterns, put them in quotes to not have the shell try to expand the pattern - typeconv will do it a lot better!*
 
 
+## SureType
+
+When converting *from* SureType, typeconv will extract all *exported* validators.
+
+
 # Contents
 
  * [Conversion example](#conversion-example)
@@ -45,6 +51,7 @@ This generates `gql-schemas/*.graphql` for each `.ts` file in `types/` (and sub-
      * [Open API](#open-api)
      * [TypeScript](#typescript)
      * [GraphQL](#graphql)
+     * [SureType](#suretype)
 
 
 # Conversion example
@@ -166,6 +173,7 @@ Usage: typeconv [options] file ...
                                           jsc   JSON Schema
                                           gql   GraphQL
                                           oapi  Open API
+                                          st    SureType
                                           ct    core-types
 
    -t, --to-type <type>             Type system to convert to
@@ -175,11 +183,12 @@ Usage: typeconv [options] file ...
                                           jsc   JSON Schema
                                           gql   GraphQL
                                           oapi  Open API
+                                          st    SureType
                                           ct    core-types
 
    --(no-)shortcut                  Shortcut conversion if possible (bypassing core-types).
-                                    This is possible between JSON Schema and Open API to preserve
-                                    all features which would be erased when going through core-types.
+                                    This is possible between SureType, JSON Schema and Open API
+                                    to preserve all features which would otherwise be erased.
                                      (default: true)
    -o, --output-directory <dir>     Output directory. Defaults to the same as the input files.
    -O, --output-extension <ext>     Output filename extension to use.
@@ -210,6 +219,26 @@ Usage: typeconv [options] file ...
      --oapi-title <title>           Open API title to use in output document.
                                     Defaults to the input filename.
      --oapi-version <version>       Open API document version to use in output document. (default: 1)
+   SureType
+     --st-ref-method <method>       SureType reference export method (default: provided)
+
+                                       Values:
+                                          no-refs   Don't ref anything, inline all types.
+                                          provided  Reference types that are explicitly exported
+                                          ref-all   Ref all provided types and those with names
+
+     --(no-)st-inline-types         Inline pretty typescript types aside validator code (default: true)
+     --(no-)st-export-type          Export the deduced types (or the pretty types,
+                                    depending on --st-inline-types)
+                                     (default: true)
+     --(no-)st-export-schema        Export validator schemas (default: false)
+     --(no-)st-export-validator     Export regular validators (default: true)
+     --(no-)st-export-ensurer       Export 'ensurer' validators (default: true)
+     --(no-)st-export-type-guard    Export type guards (is* validators) (default: true)
+     --(no-)st-use-unknown          Use 'unknown' type instead of 'any' (default: true)
+     --(no-)st-forward-schema       Forward the JSON Schema, and create an untyped validator schema
+                                    with the raw JSON Schema under the hood
+                                     (default: false)
 ```
 
 </p>
@@ -418,6 +447,26 @@ The `getGraphQLWriter` takes an optional
 object from [`core-types-graphql`][core-types-graphql-github-url], although `warn`, `filename`, `sourceFilename`, `userPackage` and `userPackageUrl` aren't necessary since they're set by typeconv internally.
 
 
+### SureType
+
+SureType conversion is done using;
+
+```ts
+import { getSureTypeReader, getSureTypeWriter } from 'typeconv'
+
+const reader = getSureTypeReader( );
+const writer = getSureTypeWriter( );
+```
+
+Both these take an optional argument from the [`core-types-suretype`][core-types-suretype-github-url] package.
+
+The `getSureTypeReader` takes an optional
+[`SuretypeToJsonSchemaOptions`](https://github.com/grantila/core-types-suretype#suretype-to-core-types).
+
+The `getSureTypeWriter` takes an optional
+[`JsonSchemaToSuretypeOptions`](https://github.com/grantila/core-types-suretype#core-types-to-suretype).
+
+
 [npm-image]: https://img.shields.io/npm/v/typeconv.svg
 [npm-url]: https://npmjs.org/package/typeconv
 [downloads-image]: https://img.shields.io/npm/dm/typeconv.svg
@@ -438,3 +487,5 @@ object from [`core-types-graphql`][core-types-graphql-github-url], although `war
 [core-types-ts-github-url]: https://github.com/grantila/core-types-ts
 [core-types-graphql-npm-url]: https://npmjs.org/package/core-types-graphql
 [core-types-graphql-github-url]: https://github.com/grantila/core-types-graphql
+[core-types-suretype-npm-url]: https://npmjs.org/package/core-types-suretype
+[core-types-suretype-github-url]: https://github.com/grantila/core-types-suretype
