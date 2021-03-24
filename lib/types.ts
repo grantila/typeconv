@@ -19,5 +19,7 @@ export type TypeImplementation =
 	| 'gql'
 	// Open API
 	| 'oapi'
+	// SureType
+	| 'st'
 	// core-types
 	| 'ct';
