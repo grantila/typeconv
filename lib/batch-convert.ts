@@ -56,6 +56,13 @@ export async function batchConvert(
 			console.error( `Storing files in ${newRoot}` );
 	}
 
+	const firstOverwritten = files.find( file => file.in === file.out );
+	if ( outputExtension !== '-' && firstOverwritten )
+		throw new Error(
+			"Won't convert - would overwrite source file with target file: " +
+			firstOverwritten.out
+		);
+
 	let convertedTypes = 0;
 
 	await map(
