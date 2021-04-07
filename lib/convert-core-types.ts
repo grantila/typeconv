@@ -3,6 +3,7 @@ import type { NodeDocument } from "core-types"
 import type { Reader } from "./reader"
 import type { Writer } from "./writer"
 import { stringify } from "./utils"
+import { registerReader, registerWriter } from "./format-graph"
 
 
 export function getCoreTypesReader( ): Reader
@@ -35,3 +36,6 @@ export function getCoreTypesWriter( ): Writer
 		},
 	};
 }
+
+registerReader( getCoreTypesReader( ) );
+registerWriter( getCoreTypesWriter( ) );

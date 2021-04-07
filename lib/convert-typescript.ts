@@ -8,6 +8,7 @@ import {
 import { Reader } from "./reader"
 import { Writer } from "./writer"
 import { userPackage, userPackageUrl } from "./package"
+import { registerReader, registerWriter } from './format-graph'
 
 
 export function getTypeScriptReader( tsOptions?: FromTsOptions ): Reader
@@ -47,3 +48,6 @@ export function getTypeScriptWriter( tsOptions?: ToTsOptions ): Writer
 		}
 	};
 }
+
+registerReader( getTypeScriptReader( ) );
+registerWriter( getTypeScriptWriter( ) );

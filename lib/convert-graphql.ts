@@ -8,6 +8,7 @@ import {
 import { Reader } from "./reader"
 import { Writer } from "./writer"
 import { userPackage, userPackageUrl } from "./package"
+import { registerReader, registerWriter } from './format-graph'
 
 
 export function getGraphQLReader( graphqlOptions?: GraphqlToCoreTypesOptions )
@@ -49,3 +50,6 @@ export function getGraphQLWriter( graphqlOptions?: CoreTypesToGraphqlOptions )
 		}
 	};
 }
+
+registerReader( getGraphQLReader( ) );
+registerWriter( getGraphQLWriter( ) );

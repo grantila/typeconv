@@ -10,10 +10,12 @@ import {
 } from 'core-types'
 
 import type { Reader, ReaderOptions } from './reader'
-import type { Shortcut, Writer, WriterOptions } from './writer'
-import type { Source } from './file'
+import type { Writer, WriterOptions } from './writer'
+import type { Source, SourceFile } from './file'
 import { getSource, writeFile, relFile } from './file'
 import { formatError } from './error'
+import { ConversionContext } from './format-graph'
+import { TypeImplementation } from './types'
 
 
 export interface Target
@@ -112,6 +114,84 @@ export interface ConvertOptions
 	shortcut?: boolean;
 }
 
+interface ReadSourceManaged
+{
+	data?: undefined;
+	filename: string;
+}
+
+interface ReadSourceNormal
+{
+	data: string;
+	filename?: string;
+}
+
+type ReadSource = ReadSourceManaged | ReadSourceNormal;
+
+async function readSource( from: Source, reader: Reader )
+: Promise< ReadSource >
+{
+	if ( reader.managedRead )
+	{
+		const { filename } = from as SourceFile;
+		if ( !filename )
+			throw new Error( "Internal error, expected filename not data" );
+		return { filename };
+	}
+
+	return await getSource( from );
+}
+
+interface SingleConversionResult
+{
+	output: string;
+	convertedTypes: Array< string >;
+	notConvertedTypes: Array< string >;
+	outConvertedTypes: Array< string >;
+	outNotConvertedTypes: Array< string >;
+}
+
+async function convertAny(
+	data: string,
+	reader: Reader,
+	writer: Writer,
+	format: TypeImplementation,
+	readOpts: ReaderOptions,
+	writeOpts: WriterOptions
+)
+: Promise< SingleConversionResult >
+{
+	if ( format === 'ct' )
+	{
+		const read = await reader.read( data, readOpts );
+
+		const written = await writer.write( read.data, writeOpts );
+
+		return {
+			output: written.data,
+			convertedTypes: read.convertedTypes,
+			notConvertedTypes: read.notConvertedTypes,
+			outConvertedTypes: written.convertedTypes,
+			outNotConvertedTypes: written.notConvertedTypes,
+		};
+	}
+	else
+	{
+		const read = await reader.shortcut![format]!( data, readOpts );
+
+		const written =
+			await writer.shortcut![format]!( read.data, writeOpts, reader );
+
+		return {
+			output: written.data,
+			convertedTypes: read.convertedTypes,
+			notConvertedTypes: read.notConvertedTypes,
+			outConvertedTypes: written.convertedTypes,
+			outNotConvertedTypes: written.notConvertedTypes,
+		};
+	}
+}
+
 export function makeConverter(
 	reader: Reader,
 	writer: Writer,
@@ -124,10 +204,16 @@ export function makeConverter(
 	const relFilename = ( filename: string ) =>
 		relFile( options?.cwd, filename );
 
+	const context = new ConversionContext( reader, writer, { shortcut } );
+	const conversionPath = context.getPath( );
+	const simpleSingleConversion =
+		conversionPath.length === 1 && conversionPath[ 0 ].format === 'ct';
+
 	async function convert( from: Source, to?: Target )
 	: Promise< ConversionResult< void | string > >
 	{
-		const { data, filename } = await getSource( from );
+		const { data, filename } = await readSource( from, reader );
+		const dataOrFilename = ( data ?? filename )!;
 
 		const warn: WarnFunction = ( msg, meta ) =>
 		{
@@ -161,31 +247,53 @@ export function makeConverter(
 			rawInput: data,
 		};
 
-		const convertShortcut = async ( ) =>
+		const convertByGraphPath = async ( data: string, pathIndex: number )
+			: Promise< SingleConversionResult > =>
 		{
-			const convertedTypes: Array< string > = [ ];
-			const notConvertedTypes: Array< string > = [ ];
+			const { reader, writer, format } = conversionPath[ pathIndex ];
 
-			const shortcut = writer.shortcut?.[ reader.kind ] as Shortcut;
-			const {
-				data: output,
-				convertedTypes: outConvertedTypes,
-				notConvertedTypes: outNotConvertedTypes,
-			} = await shortcut( data, readOpts, writeOpts, reader );
+			const result = await convertAny(
+				data,
+				reader,
+				writer,
+				format,
+				readOpts,
+				writeOpts
+			);
 
-			return {
-				output,
-				convertedTypes,
-				notConvertedTypes,
-				outConvertedTypes,
-				outNotConvertedTypes,
-			};
+			const uniqAppend = ( a: Array< string >, b: Array< string > ) =>
+				[ ...new Set( a ), ...new Set( b ) ];
+
+			if ( conversionPath.length > pathIndex + 1 )
+			{
+				// Recurse - follow path and convert again
+				const recursionResult =
+					await convertByGraphPath( result.output, pathIndex + 1 );
+
+				return {
+					output: recursionResult.output,
+					convertedTypes: recursionResult.convertedTypes,
+					notConvertedTypes: uniqAppend(
+						result.notConvertedTypes,
+						recursionResult.notConvertedTypes
+					),
+					outConvertedTypes: recursionResult.convertedTypes,
+					outNotConvertedTypes: uniqAppend(
+						result.outNotConvertedTypes,
+						recursionResult.outNotConvertedTypes
+					),
+				};
+			}
+			else
+			{
+				return result;
+			}
 		};
 
 		const convertDefault = async ( ) =>
 		{
 			const { data: doc, convertedTypes, notConvertedTypes } =
-				await reader.read( data, readOpts );
+				await reader.read( dataOrFilename, readOpts );
 
 			const simplifiedDoc =
 				options?.simplify === false
@@ -243,9 +351,9 @@ export function makeConverter(
 				outConvertedTypes,
 				outNotConvertedTypes,
 			} =
-				( shortcut && writer.shortcut?.[ reader.kind ] )
-				? await convertShortcut( )
-				: await convertDefault( );
+				simpleSingleConversion
+				? await convertDefault( )
+				: await convertByGraphPath( dataOrFilename, 0 );
 
 			const info: ConversionResultInformation = {
 				in: { convertedTypes, notConvertedTypes },
