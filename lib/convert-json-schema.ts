@@ -17,6 +17,7 @@ import { stringify } from "./utils"
 import { Reader, ReaderOptions } from "./reader"
 import { Writer } from "./writer"
 import { userPackage, userPackageUrl } from "./package"
+import { registerReader, registerWriter } from "./format-graph"
 
 
 function maybeYamlReader( data: string, { warn, filename }: ReaderOptions )
@@ -147,7 +148,7 @@ export function getOpenApiWriter(
 			};
 		},
 		shortcut: {
-			jsc( data, { filename }, writeOptions )
+			jsc( data, { filename } )
 			{
 				const jsonSchema = JSON.parse( data );
 				const openApiSchemaObject =
@@ -165,3 +166,11 @@ export function getOpenApiWriter(
 		},
 	};
 }
+
+const defaultOpenApiOptions: OpenAPIWriterOptions =
+	{ format: 'json', title: '', version: '' };
+
+registerReader( getJsonSchemaReader( ) );
+registerWriter( getJsonSchemaWriter( ) );
+registerReader( getOpenApiReader( ) );
+registerWriter( getOpenApiWriter( defaultOpenApiOptions ) );

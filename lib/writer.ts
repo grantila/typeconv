@@ -1,6 +1,6 @@
 import type { NodeDocument, WarnFunction, ConversionResult } from "core-types"
 import type { SyncOrAsync, TypeImplementation } from "./types"
-import type { ReaderOptions, Reader } from "./reader"
+import type { Reader } from "./reader"
 
 
 export interface WriterOptions
@@ -8,7 +8,7 @@ export interface WriterOptions
 	warn: WarnFunction;
 	sourceFilename?: string;
 	filename?: string;
-	rawInput: string;
+	rawInput?: string;
 }
 
 export type WriterFunction =
@@ -18,7 +18,6 @@ export type WriterFunction =
 export type Shortcut =
 	(
 		data: string,
-		readOpts: ReaderOptions,
 		writeOpts: WriterOptions,
 		reader: Reader
 	) =>
