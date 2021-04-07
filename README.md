@@ -12,7 +12,7 @@
 
 It converts between any of its supported types, bidirectionally.
 
-typeconv lets you convert between type systems which have [`core-types`][core-types-github-url] converters, such as JSON Schema, TypeScript, GraphQL, Open API and SureType. This package can be used as an API programatically or as an application (installed in `node_modules/.bin` or by using e.g. [`npx`](https://www.npmjs.com/package/npx)).
+typeconv lets you convert between type systems which have [`core-types`][core-types-github-url] converters, such as JSON Schema, TypeScript, GraphQL, Open API and [SureType][suretype-github-url]. This package can be used as an API programatically or as an application (installed in `node_modules/.bin` or by using e.g. [`npx`](https://www.npmjs.com/package/npx)).
 
 By taking advantage of the [`core-types`][core-types-github-url] ([npm][core-types-npm-url]) toolbox for generic type handling, typeconv can convert and maintain source code location information, comments, descriptions etc. when converting between the different type systems. It is using the following converter packages:
  * [`core-types-json-schema`][core-types-json-schema-github-url] ([npm][core-types-json-schema-npm-url])
@@ -148,7 +148,7 @@ You can depend on `typeconv`, and if so, you'll have `node_modules/.bin/typeconv
 
 Use `-f` (or `--from-type`) to specify *from* which type system to convert, and `-t` (or `--to-type`) to specify which type system to convert *to*. Other options can be used to configure each configuration (both the *from* and the *to*) and these options are usually only available for a specific type system.
 
-The types supported are `gql` (GraphQL), `ts` (TypeScript), `jsc` (JSON Schema) and `oapi` (Open API).
+The types supported are `gql` (GraphQL), `ts` (TypeScript), `jsc` (JSON Schema), `oapi` (Open API) and `st` (SureType).
 
 <details style="padding-left: 32px;border-left: 4px solid gray;">
 <summary><code>$ typeconv --help</code></summary>
@@ -489,3 +489,4 @@ The `getSureTypeWriter` takes an optional
 [core-types-graphql-github-url]: https://github.com/grantila/core-types-graphql
 [core-types-suretype-npm-url]: https://npmjs.org/package/core-types-suretype
 [core-types-suretype-github-url]: https://github.com/grantila/core-types-suretype
+[suretype-github-url]: https://github.com/grantila/suretype
