@@ -6,6 +6,7 @@ export * from "./error"
 
 export * from "./convert-graphql"
 export * from "./convert-json-schema"
+export * from "./convert-suretype"
 export * from "./convert-typescript"
 
 export * from "./converter"
