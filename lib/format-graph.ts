@@ -126,7 +126,6 @@ export class FormatGraph
 						}
 					}
 				}
-				recurse
 			}
 		};
 

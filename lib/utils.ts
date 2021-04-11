@@ -17,7 +17,7 @@ export function ensureType< T >(
 		return true;
 
 	if ( data )
-		console.error( `Invalid ${typeName}: ${data}\n` );
+		console.error( `Invalid ${typeName}: ${data}` );
 
 	orElse( );
 }

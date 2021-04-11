@@ -133,7 +133,7 @@ export async function batchConvert(
 	return {
 		types: convertedTypes,
 		files: files.length,
-	}
+	};
 }
 
 export async function batchConvertGlob(
