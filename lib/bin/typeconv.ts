@@ -30,11 +30,14 @@ import {
 	getSureTypeReader,
 	getSureTypeWriter,
 } from "../convert-suretype"
+import { JsonSchemaToSuretypeOptions } from 'core-types-suretype'
 import { ExportRefMethod } from 'suretype'
 import { userPackage, userPackageUrl } from "../package"
 import { TypeImplementation } from "../types"
 import { ensureType } from "../utils"
 
+
+type SureTypeMissingRef = JsonSchemaToSuretypeOptions[ 'missingReference' ];
 
 const implementations: Array< Record< TypeImplementation, string > >
 	= [
@@ -225,11 +228,23 @@ const oppaInstance =
 		type: 'string',
 		description: "SureType reference export method",
 		values: [
-			{ "no-refs": "Don't ref anything, inline all types." },
+			{ "no-refs": "Don't ref anything, inline all types" },
 			{ "provided": "Reference types that are explicitly exported" },
 			{ "ref-all": "Ref all provided types and those with names" },
 		],
 		default: 'provided',
+	} )
+	.add( {
+		name: 'st-missing-ref',
+		argumentName: 'method',
+		type: 'string',
+		description: "What to do when detecting an unresolvable reference",
+		values: [
+			{ "ignore": "Ignore; skip type or cast to any" },
+			{ "warn": "Same as 'ignore', but warn" },
+			{ "error": "Fail conversion" },
+		],
+		default: 'warn',
 	} )
 	.add( {
 		name: 'st-inline-types',
@@ -322,6 +337,7 @@ const {
 
 	// suretype
 	"st-ref-method": stRefMethod,
+	"st-missing-ref": stMissingReference,
 	"st-inline-types": stInlineTypes,
 	"st-export-type": stExportType,
 	"st-export-schema": stExportSchema,
@@ -356,6 +372,14 @@ if ( !ensureType< ExportRefMethod | undefined >(
 	stRefMethod,
 	'ref-method',
 	[  'no-refs', 'provided', 'ref-all', undefined ],
+	printHelp
+) )
+	throw new Error( );
+
+if ( !ensureType< SureTypeMissingRef | undefined >(
+	stMissingReference,
+	'missing-ref',
+	[  'ignore', 'warn', 'error', undefined ],
 	printHelp
 ) )
 	throw new Error( );
@@ -414,6 +438,7 @@ const getWriter = ( ): Writer =>
 			exportTypeGuard: stExportTypeGuard,
 			useUnknown: stUseUnknown,
 			forwardSchema: stForwardSchema,
+			missingReference: stMissingReference,
 		} )
 		: getCoreTypesWriter( );
 }

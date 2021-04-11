@@ -47,17 +47,17 @@
     "tempy": "^1.0.1",
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.4"
   },
   "dependencies": {
     "@babel/code-frame": "^7.12.13",
     "already": "^1.13.2",
     "chalk": "^4.1.0",
-    "core-types": "^1.8.0",
+    "core-types": "^1.8.1",
     "core-types-graphql": "^1.2.0",
     "core-types-json-schema": "^1.5.0",
-    "core-types-suretype": "^1.0.3",
-    "core-types-ts": "^1.2.0",
+    "core-types-suretype": "^1.1.1",
+    "core-types-ts": "^1.2.1",
     "globby": "^11.0.3",
     "js-yaml": "^4.0.0",
     "oppa": "^0.3.3",

@@ -56,7 +56,6 @@ export async function batchConvert(
 			console.error( `Storing files in ${newRoot}` );
 	}
 
-	const firstOverwritten = files.find( file => file.in === file.out );
 	const innerExtension: string | undefined =
 		fromFormat === 'ts'
 		? '.d'
@@ -65,6 +64,9 @@ export async function batchConvert(
 	const changeExt = ( outFile: string, outExt: string ) =>
 		changeExtension( outFile, outExt, innerExtension );
 
+	const firstOverwritten = files.find( file =>
+		file.in === changeExt( file.out, outputExtension )
+	);
 	if ( outputExtension !== '-' && firstOverwritten )
 		throw new Error(
 			"Won't convert - would overwrite source file with target file: " +
