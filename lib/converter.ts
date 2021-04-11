@@ -48,6 +48,11 @@ export interface Converter
 	 * The current working directory for this converter
 	 */
 	cwd: string;
+
+	/**
+	 * From format
+	 */
+	fromFormat: TypeImplementation;
 }
 
 export type ConvertMapFunction =
@@ -383,5 +388,6 @@ export function makeConverter(
 		}
 	}
 
-	return { convert: convert as Converter[ 'convert' ], cwd };
+	const fromFormat = reader.kind;
+	return { convert: convert as Converter[ 'convert' ], cwd, fromFormat };
 }

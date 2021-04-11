@@ -44,7 +44,7 @@ export async function batchConvert(
 		concurrency = 16
 	} = options;
 
-	const { cwd, convert } = converter;
+	const { cwd, convert, fromFormat } = converter;
 
 	const { root, newRoot, files } =
 		reRootFiles( filenames, cwd, options.outputDirectory );
@@ -57,6 +57,14 @@ export async function batchConvert(
 	}
 
 	const firstOverwritten = files.find( file => file.in === file.out );
+	const innerExtension: string | undefined =
+		fromFormat === 'ts'
+		? '.d'
+		: undefined;
+
+	const changeExt = ( outFile: string, outExt: string ) =>
+		changeExtension( outFile, outExt, innerExtension );
+
 	if ( outputExtension !== '-' && firstOverwritten )
 		throw new Error(
 			"Won't convert - would overwrite source file with target file: " +
@@ -74,8 +82,8 @@ export async function batchConvert(
 				( dryRun || outputExtension === '-' )
 				? undefined as unknown as Target
 				: {
-					filename: changeExtension( outFilename, outputExtension ),
-					relFilename: changeExtension( rel, outputExtension ),
+					filename: changeExt( outFilename, outputExtension ),
+					relFilename: changeExt( rel, outputExtension ),
 				};
 
 			const { data, ...info } = await convert( { filename, cwd }, to );
@@ -84,7 +92,7 @@ export async function batchConvert(
 
 			if ( verbose )
 			{
-				const outputRel = changeExtension( rel, outputExtension );
+				const outputRel = changeExt( rel, outputExtension );
 				const outName = outputExtension === '-' ? 'stdout' : outputRel;
 
 				const allInputTypes =
@@ -139,12 +147,19 @@ export async function batchConvertGlob(
 	return batchConvert( converter, filesTransform( files ), options );
 }
 
-function changeExtension( filename: string, extension: string )
+function changeExtension(
+	filename: string,
+	extension: string,
+	innerExtension?: string
+)
 {
 	extension = extension.startsWith( '.' ) ? extension : `.${extension}`;
 
-	return path.join(
-		path.dirname( filename ),
-		path.basename( filename, path.extname( filename ) ) + extension
-	);
+	const baseName = path.basename( filename, path.extname( filename ) );
+	const innerName =
+		innerExtension
+		? path.basename( baseName, innerExtension )
+		: baseName;
+
+	return path.join( path.dirname( filename ), innerName + extension );
 }
