@@ -17,7 +17,7 @@ exports[`converter shortcut should run graph if necessary (gql->st) 1`] = `
 
 import { suretype, v, compile, annotate } from 'suretype';
 
-/* The validation schema for a Foo*/
+/** The validation schema for a Foo */
 export const schemaFoo = suretype({
     name: \\"Foo\\",
     title: \\"The Foo type\\"
@@ -32,7 +32,7 @@ export const schemaFoo = suretype({
     }, v.array(v.string()).required())
 }));
 
-/* The Foo type*/
+/** The Foo type */
 export interface Foo {
     /**
      * This is the integer thing
@@ -41,7 +41,7 @@ export interface Foo {
      */
     int?: number;
     str: string;
-    /* Excellent array of strings*/
+    /** Excellent array of strings */
     stra: string[];
 }
 
