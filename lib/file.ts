@@ -51,9 +51,9 @@ export async function writeFile( filename: string, data: string )
 	{
 		await tryWrite( );
 	}
-	catch ( err )
+	catch ( err: any )
 	{
-		if ( err.code === 'ENOENT' )
+		if ( err?.code === 'ENOENT' )
 		{
 			await fsPromises.mkdir(
 				path.dirname( filename ),

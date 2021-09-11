@@ -1,7 +1,7 @@
 import * as path from 'path'
 
 import { map } from "already"
-import { hex, gray } from "chalk"
+import * as chalk from "chalk"
 
 import { Converter, Target } from "./converter"
 import { glob, reRootFiles, prettyFile } from './file'
@@ -112,10 +112,10 @@ export async function batchConvert(
 				const prefixText = '[typeconv]';
 				const prefix =
 					allInputTypes === 0
-					? gray( prefixText )
+					? chalk.gray( prefixText )
 					: notConverted
-					? hex( '#D2D200' )( prefixText )
-					: hex( '#00D21F' )( prefixText );
+					? chalk.hex( '#D2D200' )( prefixText )
+					: chalk.hex( '#00D21F' )( prefixText );
 
 				console.error(
 					`${prefix} ${prettyFile( rel, root )} -> ` +
