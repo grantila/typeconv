@@ -33,4 +33,29 @@ describe( "ts-to-openapi", ( ) =>
 
 		expect( data ).toMatchSnapshot( );
 	} );
+
+	it( "typescript to openapi", async ( ) =>
+	{
+		const input = `
+			export type Point = {
+				/** The distance from the left in mm */
+				x: number;
+				/** The distance from the top in mm */
+				y: number;
+			};
+		`;
+
+		const { convert } = makeConverter(
+			getTypeScriptReader( ),
+			getOpenApiWriter( {
+				format: 'yaml',
+				title: 'My API',
+				version: 'v1'
+			} )
+		);
+
+		const { data } = await convert( { data: input } );
+
+		expect( data ).toMatchSnapshot( );
+	} );
 } );
