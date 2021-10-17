@@ -13,10 +13,10 @@ Object {
         "baz": Object {
           "anyOf": Array [
             Object {
-              "$ref": "#/definitions/Foo",
+              "type": "number",
             },
             Object {
-              "type": "number",
+              "$ref": "#/definitions/Foo",
             },
           ],
           "description": "@see baz documentation at http://documentation.yada",
@@ -81,10 +81,10 @@ Object {
         "baz": Object {
           "anyOf": Array [
             Object {
-              "$ref": "#/definitions/Foo",
+              "type": "number",
             },
             Object {
-              "type": "number",
+              "$ref": "#/definitions/Foo",
             },
           ],
           "description": "@see baz documentation at http://documentation.yada",
@@ -181,10 +181,10 @@ Object {
         "baz": Object {
           "anyOf": Array [
             Object {
-              "$ref": "#/definitions/Foo",
+              "type": "number",
             },
             Object {
-              "type": "number",
+              "$ref": "#/definitions/Foo",
             },
           ],
           "description": "@see baz documentation at http://documentation.yada",

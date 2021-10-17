@@ -32,5 +32,5 @@ describe( "ts-to-openapi", ( ) =>
 		const { data } = await convert( { data: input } );
 
 		expect( data ).toMatchSnapshot( );
-	});
+	} );
 } );

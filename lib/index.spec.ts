@@ -20,7 +20,7 @@ describe( "index", ( ) =>
 		expect( JSON.parse( data ) ).toStrictEqual( {
 			$comment: expect.anything( ),
 			definitions: {
-				Foo: { type: [ 'string', 'number' ] },
+				Foo: { type: [ 'number', 'string' ] },
 			},
 		} );
 	} );

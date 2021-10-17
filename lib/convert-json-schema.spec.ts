@@ -318,7 +318,7 @@ describe( "convert-json-schema", ( ) =>
 			} = await writer.write( doc, { warn, rawInput: '' } );
 
 			const out = JSON.parse( data );
-			delete out.$comment;
+			delete out.info['x-comment'];
 
 			expect( out ).toStrictEqual( openApiSchemaFixture );
 			expect( convertedTypes ).toStrictEqual( [ 'Foo' ] );
@@ -368,7 +368,7 @@ describe( "convert-json-schema", ( ) =>
 			} = await writer.write( doc, { warn, rawInput: '' } );
 
 			const out = readYaml( data ) as any;
-			delete out.$comment;
+			delete out.info['x-comment'];
 
 			expect( out ).toStrictEqual( openApiSchemaFixture );
 			expect( convertedTypes ).toStrictEqual( [ 'Foo' ] );
