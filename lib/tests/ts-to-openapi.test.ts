@@ -1,9 +1,9 @@
-import { makeConverter, getTypeScriptReader, getOpenApiWriter } from "../"
+import { makeConverter, getTypeScriptReader, getOpenApiWriter } from '../'
 
 
-describe( "ts-to-openapi", ( ) =>
+describe( 'ts-to-openapi', ( ) =>
 {
-	it( "typescript to openapi", async ( ) =>
+	it( 'typescript to openapi', async ( ) =>
 	{
 		const input = `
 			type Thing = {
@@ -34,7 +34,7 @@ describe( "ts-to-openapi", ( ) =>
 		expect( data ).toMatchSnapshot( );
 	} );
 
-	it( "typescript to openapi", async ( ) =>
+	it( 'ensure descriptions are forwarded', async ( ) =>
 	{
 		const input = `
 			export type Point = {

@@ -20,15 +20,19 @@ import { suretype, v, compile, annotate } from 'suretype';
 /** The validation schema for a Foo */
 export const schemaFoo = suretype({
     name: \\"Foo\\",
-    title: \\"The Foo type\\"
+    title: \\"Foo\\",
+    description: \\"The Foo type\\"
 }, v.object({
     int: annotate({
-        title: \\"This is the integer thing\\",
-        description: \\"@default 55\\"
+        title: \\"Foo.int\\",
+        description: \\"This is the integer thing\\\\n\\\\n@default 55\\"
     }, v.number().integer()),
-    str: v.string().required(),
+    str: annotate({
+        title: \\"Foo.str\\"
+    }, v.string().required()),
     stra: annotate({
-        title: \\"Excellent array of strings\\"
+        title: \\"Foo.stra\\",
+        description: \\"Excellent array of strings\\"
     }, v.array(v.string()).required())
 }));
 
@@ -83,7 +87,7 @@ paths: {}
 components:
   schemas:
     Foo:
-      title: This is Foo
+      description: This is Foo
       properties:
         gt5:
           exclusiveMinimum: 5

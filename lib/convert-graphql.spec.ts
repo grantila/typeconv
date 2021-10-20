@@ -31,13 +31,15 @@ describe( "convert-graphql", ( ) =>
 					types: [
 						{
 							name: 'Foo',
-							title: 'Foo type',
+							title: 'Foo',
+							description: 'Foo type',
 							type: 'object',
 							loc: expect.anything( ),
 							properties: {
 								bar: {
 									node: {
 										type: 'string',
+										title: 'Foo.bar',
 										loc: expect.anything( ),
 									},
 									required: true,
@@ -45,6 +47,7 @@ describe( "convert-graphql", ( ) =>
 								num: {
 									node: {
 										type: 'number',
+										title: 'Foo.num',
 										loc: expect.anything( ),
 									},
 									required: false,
@@ -52,6 +55,7 @@ describe( "convert-graphql", ( ) =>
 								int: {
 									node: {
 										type: 'integer',
+										title: 'Foo.int',
 										loc: expect.anything( ),
 									},
 									required: false,
@@ -81,7 +85,8 @@ describe( "convert-graphql", ( ) =>
 				types: [
 					{
 						name: 'Foo',
-						title: 'Foo type',
+						title: 'Foo',
+						description: 'Foo type',
 						type: 'object',
 						properties: {
 							bar: {

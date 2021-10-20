@@ -8,25 +8,31 @@ Object {
       "additionalProperties": false,
       "properties": Object {
         "bar": Object {
+          "title": "Foo.bar",
           "type": "string",
         },
         "baz": Object {
           "anyOf": Array [
             Object {
+              "title": "Foo.baz",
               "type": "number",
             },
             Object {
               "$ref": "#/definitions/Foo",
+              "title": "Foo.baz",
             },
           ],
-          "description": "@see baz documentation at http://documentation.yada",
-          "title": "A baz is a number of another Foo",
+          "description": "A baz is a number of another Foo
+
+@see baz documentation at http://documentation.yada",
+          "title": "Foo.baz",
         },
       },
       "required": Array [
         "bar",
         "baz",
       ],
+      "title": "Foo",
       "type": "object",
     },
     "Foo2": Object {
@@ -36,12 +42,14 @@ Object {
           "items": Object {
             "type": "boolean",
           },
+          "title": "Foo2.bak",
           "type": "array",
         },
       },
       "required": Array [
         "bak",
       ],
+      "title": "Foo2",
       "type": "object",
     },
   },
@@ -56,12 +64,14 @@ Object {
       "additionalProperties": false,
       "properties": Object {
         "name": Object {
+          "title": "SubDirType.name",
           "type": "string",
         },
       },
       "required": Array [
         "name",
       ],
+      "title": "SubDirType",
       "type": "object",
     },
   },
@@ -76,25 +86,31 @@ Object {
       "additionalProperties": false,
       "properties": Object {
         "bar": Object {
+          "title": "Foo.bar",
           "type": "string",
         },
         "baz": Object {
           "anyOf": Array [
             Object {
+              "title": "Foo.baz",
               "type": "number",
             },
             Object {
               "$ref": "#/definitions/Foo",
+              "title": "Foo.baz",
             },
           ],
-          "description": "@see baz documentation at http://documentation.yada",
-          "title": "A baz is a number of another Foo",
+          "description": "A baz is a number of another Foo
+
+@see baz documentation at http://documentation.yada",
+          "title": "Foo.baz",
         },
       },
       "required": Array [
         "bar",
         "baz",
       ],
+      "title": "Foo",
       "type": "object",
     },
     "Foo2": Object {
@@ -104,12 +120,14 @@ Object {
           "items": Object {
             "type": "boolean",
           },
+          "title": "Foo2.bak",
           "type": "array",
         },
       },
       "required": Array [
         "bak",
       ],
+      "title": "Foo2",
       "type": "object",
     },
   },
@@ -124,12 +142,14 @@ Object {
       "additionalProperties": false,
       "properties": Object {
         "name": Object {
+          "title": "SubDirType.name",
           "type": "string",
         },
       },
       "required": Array [
         "name",
       ],
+      "title": "SubDirType",
       "type": "object",
     },
   },
@@ -156,12 +176,14 @@ Object {
       "additionalProperties": false,
       "properties": Object {
         "name": Object {
+          "title": "SubDirType.name",
           "type": "string",
         },
       },
       "required": Array [
         "name",
       ],
+      "title": "SubDirType",
       "type": "object",
     },
   },
@@ -176,25 +198,31 @@ Object {
       "additionalProperties": false,
       "properties": Object {
         "bar": Object {
+          "title": "Foo.bar",
           "type": "string",
         },
         "baz": Object {
           "anyOf": Array [
             Object {
+              "title": "Foo.baz",
               "type": "number",
             },
             Object {
               "$ref": "#/definitions/Foo",
+              "title": "Foo.baz",
             },
           ],
-          "description": "@see baz documentation at http://documentation.yada",
-          "title": "A baz is a number of another Foo",
+          "description": "A baz is a number of another Foo
+
+@see baz documentation at http://documentation.yada",
+          "title": "Foo.baz",
         },
       },
       "required": Array [
         "bar",
         "baz",
       ],
+      "title": "Foo",
       "type": "object",
     },
     "Foo2": Object {
@@ -204,12 +232,14 @@ Object {
           "items": Object {
             "type": "boolean",
           },
+          "title": "Foo2.bak",
           "type": "array",
         },
       },
       "required": Array [
         "bak",
       ],
+      "title": "Foo2",
       "type": "object",
     },
   },
