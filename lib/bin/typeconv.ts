@@ -35,6 +35,7 @@ import { ExportRefMethod } from 'suretype'
 import { userPackage, userPackageUrl } from "../package"
 import { TypeImplementation } from "../types"
 import { ensureType } from "../utils"
+import { FromTsOptions } from "core-types-ts"
 
 
 type SureTypeMissingRef = JsonSchemaToSuretypeOptions[ 'missingReference' ];
@@ -161,6 +162,30 @@ const oppaInstance =
 		type: 'boolean',
 		description: "Use 'unknown' type instead of 'any'",
 		default: true,
+	} )
+	.add( {
+		name: 'ts-non-exported',
+		type: 'string',
+		argumentName: 'method',
+		description: "Strategy for non-exported types",
+		default: 'include-if-referenced',
+		values: [
+			{ 'fail': "Fail conversion" },
+			{ 'ignore': [
+				"Don't include non-exported types,",
+				"even if referenced",
+			] },
+			{ 'include': "Include non-exported types" },
+			{ 'inline': [
+				"Don't include non-exported types, ",
+				"inline them if necessary.",
+				"Will fail on cyclic types"
+			] },
+			{ 'include-if-referenced': [
+				"Include non-exported types only if they",
+				"are referenced from exported types",
+			] },
+		],
 	} )
 
 	.group( {
@@ -323,6 +348,7 @@ const {
 	"ts-disable-lint-header": tsDisableLintHeader,
 	"ts-descriptive-header": tsDescriptiveHeader,
 	"ts-use-unknown": tsUseUnknown,
+	"ts-non-exported": tsNonExported,
 
 	// JSON Schema
 
@@ -368,6 +394,14 @@ if ( !ensureType< TypeImplementation >(
 ) )
 	throw new Error( );
 
+if ( !ensureType< FromTsOptions[ 'nonExported' ] >(
+	tsNonExported,
+	'ts-non-exported',
+	[ 'fail', 'ignore', 'include', 'inline', 'include-if-referenced' ],
+	printHelp
+) )
+	throw new Error( );
+
 if ( !ensureType< ExportRefMethod | undefined >(
 	stRefMethod,
 	'ref-method',
@@ -387,7 +421,9 @@ if ( !ensureType< SureTypeMissingRef | undefined >(
 const getReader = ( ): Reader =>
 {
 	return fromType === 'ts'
-		? getTypeScriptReader( )
+		? getTypeScriptReader( {
+			nonExported: tsNonExported,
+		} )
 		: fromType === 'jsc'
 		? getJsonSchemaReader( )
 		: fromType === 'oapi'
