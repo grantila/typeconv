@@ -91,10 +91,20 @@ export class FormatGraph
 				paths.set( pathKey, newPath );
 			};
 
+			function shortcutReadable( reader: Reader ): Array< string >
+			{
+				return [ ...new Set(
+					[
+						reader.kind,
+						...Object.keys( reader.shortcut ?? { } ),
+					]
+				) ];
+			}
+
 			const formats = [
 				...shortcuts ? [ ] : [ 'ct' ],
 				...shortcuts !== false
-					? Object.keys( reader.shortcut ?? { } )
+					? shortcutReadable( reader )
 					: [ ]
 			];
 			for ( const format of formats as Array< TI > )
@@ -139,6 +149,7 @@ export class FormatGraph
 		writer: Writer,
 		shortcut: boolean | undefined
 	)
+	: GraphPath
 	{
 		const paths = this.findAllPaths( reader, writer, shortcut );
 		if ( paths.length > 0 )

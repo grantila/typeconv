@@ -39,14 +39,14 @@ function fakeWriter(
 describe( "format-graph", ( ) =>
 {
 	const gqlRead = fakeReader( 'gql', [ 'jsc' ] );
-	const jscRead = fakeReader( 'jsc', [ 'jsc', 'oapi' ] );
-	const oapiRead = fakeReader( 'oapi', [ 'jsc', 'oapi' ] );
+	const jscRead = fakeReader( 'jsc', [ 'oapi' ] );
+	const oapiRead = fakeReader( 'oapi', [ 'jsc' ] );
 	const tsRead = fakeReader( 'ts' );
 	const stRead = fakeReader( 'st', [ 'jsc' ], true );
 
 	const gqlWrite = fakeWriter( 'gql' );
 	const tsWrite = fakeWriter( 'ts' );
-	const jscWrite = fakeWriter( 'jsc', [ 'jsc' ] );
+	const jscWrite = fakeWriter( 'jsc', [ 'oapi' ] );
 	const oapiWrite = fakeWriter( 'oapi', [ 'jsc' ] );
 	const stWrite = fakeWriter( 'st', [ 'jsc' ] );
 
@@ -93,7 +93,7 @@ describe( "format-graph", ( ) =>
 		);
 
 		expect( paths.map( path => makePathKey( path ) ) ).toMatchSnapshot( );
-} );
+	} );
 
 	it( "findAllPaths (only shortcuts when exist)", ( ) =>
 	{
@@ -116,6 +116,19 @@ describe( "format-graph", ( ) =>
 			stRead,
 			oapiWrite,
 			false
+		);
+
+		expect( paths.map( path => makePathKey( path ) ) ).toMatchSnapshot( );
+	} );
+
+	it( "findAllPaths (use shortcut)", ( ) =>
+	{
+		const graph = makeGraph( );
+
+		const paths = graph.findAllPaths(
+			jscRead,
+			oapiWrite,
+			true
 		);
 
 		expect( paths.map( path => makePathKey( path ) ) ).toMatchSnapshot( );

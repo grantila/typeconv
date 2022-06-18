@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`regressions issue #9 1`] = `
+"openapi: 3.0.0
+info:
+  title: Testconverter
+  version: v1
+paths: {}
+components:
+  schemas:
+    testType:
+      properties:
+        name:
+          minLength: 5
+          maxLength: 10
+          type: string
+        creationDate:
+          format: date-time
+          type: string
+      required:
+        - name
+        - creationDate
+      type: object
+"
+`;

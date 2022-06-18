@@ -182,7 +182,10 @@ async function convertAny(
 	}
 	else
 	{
-		const read = await reader.shortcut![format]!( data, readOpts );
+		const read: CoreTypesConversionResult =
+			reader.shortcut?.[format]
+			? await reader.shortcut![format]!( data, readOpts )
+			: { data, convertedTypes: [ ], notConvertedTypes: [ ] };
 
 		const written =
 			await writer.shortcut![format]!( read.data, writeOpts, reader );
