@@ -13,11 +13,11 @@ import {
 import { load as readYaml, dump as writeYaml } from "js-yaml"
 import * as path from "path"
 
-import { stringify } from "./utils"
-import { Reader, ReaderOptions } from "./reader"
-import { Writer } from "./writer"
-import { userPackage, userPackageUrl } from "./package"
-import { registerReader, registerWriter } from "./format-graph"
+import { stringify } from "./utils.js"
+import { Reader, ReaderOptions } from "./reader.js"
+import { Writer } from "./writer.js"
+import { userPackage, userPackageUrl } from "./package.js"
+import { registerReader, registerWriter } from "./format-graph.js"
 
 
 function maybeYamlReader( data: string, { warn, filename }: ReaderOptions )

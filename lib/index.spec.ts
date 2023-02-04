@@ -2,7 +2,7 @@ import {
 	makeConverter,
 	getTypeScriptReader,
 	getJsonSchemaWriter,
-} from './index'
+} from "./index.js"
 
 
 describe( "index", ( ) =>

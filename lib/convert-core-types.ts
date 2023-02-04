@@ -1,9 +1,9 @@
 import type { NodeDocument } from "core-types"
 
-import type { Reader } from "./reader"
-import type { Writer } from "./writer"
-import { stringify } from "./utils"
-import { registerReader, registerWriter } from "./format-graph"
+import type { Reader } from "./reader.js"
+import type { Writer } from "./writer.js"
+import { stringify } from "./utils.js"
+import { registerReader, registerWriter } from "./format-graph.js"
 
 
 export function getCoreTypesReader( ): Reader

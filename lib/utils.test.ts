@@ -1,4 +1,6 @@
-import { ensureType, stringify } from './utils'
+import { jest } from "@jest/globals"
+
+import { ensureType, stringify } from "./utils.js"
 
 describe( "utils", ( ) =>
 {

@@ -1,42 +1,49 @@
 #!/usr/bin/env node
 
-import { bold } from "chalk"
+import { promises as fsPromises } from "fs"
+import path from "path"
+import { fileURLToPath } from "url"
+
+import chalk from "chalk"
 import { oppa } from "oppa"
 import { stripAnnotations } from "core-types"
+import { JsonSchemaToSuretypeOptions } from 'core-types-suretype'
+import { FromTsOptions } from "core-types-ts"
+import { ExportRefMethod } from "suretype"
 
-import { makeConverter } from "../converter"
-import { batchConvertGlob } from "../batch-convert"
-import { Reader } from "../reader"
-import { Writer } from "../writer"
+import { makeConverter } from "../converter.js"
+import { batchConvertGlob } from "../batch-convert.js"
+import { Reader } from "../reader.js"
+import { Writer } from "../writer.js"
 import {
 	getJsonSchemaReader,
 	getJsonSchemaWriter,
 	getOpenApiReader,
 	getOpenApiWriter,
-} from "../convert-json-schema"
+} from "../convert-json-schema.js"
 import {
 	getGraphQLReader,
 	getGraphQLWriter,
-} from "../convert-graphql"
+} from "../convert-graphql.js"
 import {
 	getTypeScriptReader,
 	getTypeScriptWriter,
-} from "../convert-typescript"
+} from "../convert-typescript.js"
 import {
 	getCoreTypesReader,
 	getCoreTypesWriter,
-} from "../convert-core-types"
+} from "../convert-core-types.js"
 import {
 	getSureTypeReader,
 	getSureTypeWriter,
-} from "../convert-suretype"
-import { JsonSchemaToSuretypeOptions } from 'core-types-suretype'
-import { ExportRefMethod } from 'suretype'
-import { userPackage, userPackageUrl } from "../package"
-import { TypeImplementation } from "../types"
-import { ensureType } from "../utils"
-import { FromTsOptions } from "core-types-ts"
+} from "../convert-suretype.js"
+import { userPackage, userPackageUrl } from "../package.js"
+import { TypeImplementation } from "../types.js"
+import { ensureType } from "../utils.js"
 
+
+const __filename = fileURLToPath( import.meta.url );
+const __dirname = path.dirname( __filename );
 
 type SureTypeMissingRef = JsonSchemaToSuretypeOptions[ 'missingReference' ];
 
@@ -50,9 +57,17 @@ const implementations: Array< Record< TypeImplementation, string > >
 		{ ct: "core-types" } as Record< TypeImplementation, string >,
 	];
 
+const { version } =
+	JSON.parse(
+		await fsPromises.readFile(
+			path.resolve( __dirname, "..", "..", "package.json" ),
+			'utf-8'
+		)
+	);
+
 const oppaInstance =
 	oppa( {
-		version: require( "../../package.json" ).version,
+		version: version,
 		usage: "typeconv [options] file ...",
 		noVersionAlias: true,
 	} )
@@ -522,7 +537,7 @@ const getWriter = ( ): Writer =>
 
 	const sec = ( ( after - before ) / 1000 ).toFixed( 1 );
 
-	console.error( bold(
+	console.error( chalk.bold(
 		`💡 Converted ${result.types} types in ${result.files} files, ` +
 		`in ${sec}s`
 	) );

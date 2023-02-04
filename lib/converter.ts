@@ -7,15 +7,15 @@ import {
 	simplify,
 	WarnFunction,
 	ConversionResult as CoreTypesConversionResult,
-} from 'core-types'
+} from "core-types"
 
-import type { Reader, ReaderOptions } from './reader'
-import type { Writer, WriterOptions } from './writer'
-import type { Source, SourceFile } from './file'
-import { getSource, writeFile, relFile } from './file'
-import { formatError } from './error'
-import { ConversionContext } from './format-graph'
-import { TypeImplementation } from './types'
+import type { Reader, ReaderOptions } from "./reader.js"
+import type { Writer, WriterOptions } from "./writer.js"
+import type { Source, SourceFile } from "./file.js"
+import { getSource, writeFile, relFile } from "./file.js"
+import { formatError } from "./error.js"
+import { ConversionContext } from "./format-graph.js"
+import { TypeImplementation } from "./types.js"
 
 
 export interface Target

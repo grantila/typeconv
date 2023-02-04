@@ -5,13 +5,13 @@ import {
 	convertSuretypeToJsonSchema,
 	JsonSchemaToSuretypeOptions,
 	SuretypeToJsonSchemaOptions,
-} from 'core-types-suretype'
+} from "core-types-suretype"
 
-import { Reader } from "./reader"
-import { Writer } from "./writer"
-import { userPackage, userPackageUrl } from "./package"
-import { registerReader, registerWriter } from './format-graph';
-import { stringify } from "./utils"
+import { Reader } from "./reader.js"
+import { Writer } from "./writer.js"
+import { userPackage, userPackageUrl } from "./package.js"
+import { registerReader, registerWriter } from "./format-graph.js"
+import { stringify } from "./utils.js"
 
 
 export function getSureTypeReader( options?: SuretypeToJsonSchemaOptions )

@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals"
 
 export type MockedLoggers< F extends 'log' | 'warn' | 'error' > =
 	{

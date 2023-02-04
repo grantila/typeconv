@@ -1,4 +1,8 @@
-import { makeConverter, getTypeScriptReader, getOpenApiWriter } from '../'
+import {
+	makeConverter,
+	getTypeScriptReader,
+	getOpenApiWriter,
+} from '../index.js'
 
 
 describe( 'ts-to-openapi', ( ) =>

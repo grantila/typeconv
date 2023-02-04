@@ -1,13 +1,13 @@
-export * from "./types"
-export * from "./reader"
-export * from "./writer"
+export * from "./types.js"
+export * from "./reader.js"
+export * from "./writer.js"
 
-export * from "./error"
+export * from "./error.js"
 
-export * from "./convert-graphql"
-export * from "./convert-json-schema"
-export * from "./convert-suretype"
-export * from "./convert-typescript"
+export * from "./convert-graphql.js"
+export * from "./convert-json-schema.js"
+export * from "./convert-suretype.js"
+export * from "./convert-typescript.js"
 
-export * from "./converter"
-export * from "./batch-convert"
+export * from "./converter.js"
+export * from "./batch-convert.js"

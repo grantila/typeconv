@@ -19,20 +19,20 @@ import { suretype, v, compile, annotate } from 'suretype';
 
 /** The validation schema for a Foo */
 export const schemaFoo = suretype({
-    name: \\"Foo\\",
-    title: \\"Foo\\",
-    description: \\"The Foo type\\"
+    name: "Foo",
+    title: "Foo",
+    description: "The Foo type"
 }, v.object({
     int: annotate({
-        title: \\"Foo.int\\",
-        description: \\"This is the integer thing\\\\n\\\\n@default 55\\"
+        title: "Foo.int",
+        description: "This is the integer thing\\n\\n@default 55"
     }, v.number().integer()),
     str: annotate({
-        title: \\"Foo.str\\"
+        title: "Foo.str"
     }, v.string().required()),
     stra: annotate({
-        title: \\"Foo.stra\\",
-        description: \\"Excellent array of strings\\"
+        title: "Foo.stra",
+        description: "Excellent array of strings"
     }, v.array(v.string()).required())
 }));
 
@@ -80,7 +80,7 @@ info:
   title: Title
   version: '1'
   x-comment: >-
-    Generated from validator.st.ts by core-types-suretype
+    Generated from validator.st.js by core-types-suretype
     (https://github.com/grantila/core-types-suretype) on behalf of typeconv
     (https://github.com/grantila/typeconv)
 paths: {}

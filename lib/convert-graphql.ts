@@ -5,10 +5,10 @@ import {
 	GraphqlToCoreTypesOptions,
 } from 'core-types-graphql'
 
-import { Reader } from "./reader"
-import { Writer } from "./writer"
-import { userPackage, userPackageUrl } from "./package"
-import { registerReader, registerWriter } from './format-graph'
+import { Reader } from "./reader.js"
+import { Writer } from "./writer.js"
+import { userPackage, userPackageUrl } from "./package.js"
+import { registerReader, registerWriter } from "./format-graph.js"
 
 
 export function getGraphQLReader( graphqlOptions?: GraphqlToCoreTypesOptions )

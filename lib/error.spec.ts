@@ -1,5 +1,6 @@
-import { UnsupportedError } from 'core-types';
-import { formatError, formatCoreTypesError } from './error'
+import { UnsupportedError } from "core-types"
+
+import { formatError, formatCoreTypesError } from "./error.js"
 
 describe( "error", ( ) =>
 {

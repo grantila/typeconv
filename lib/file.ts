@@ -1,8 +1,9 @@
-import { promises as fsPromises } from 'fs'
-import * as path from 'path'
-import * as globby from 'globby'
-import { bold } from 'chalk'
-import * as terminalLink from "terminal-link"
+import { promises as fsPromises } from "fs"
+import path from "path"
+
+import { globby } from "globby"
+import chalk from "chalk"
+import terminalLink from "terminal-link"
 
 
 export interface SourceFile
@@ -171,7 +172,7 @@ export function prettyFile( filename: string, cwd: string )
 
 	const name =
 		( ( dirName && dirName !== '.' ) ? ( dirName + path.sep ) : '' ) +
-		bold( baseName );
+		chalk.bold( baseName );
 
 	return terminalLink( name, absFile, { fallback: false } );
 }

@@ -1,6 +1,10 @@
 import type { NodeDocument } from "core-types"
+import { jest } from "@jest/globals"
 
-import { getCoreTypesReader, getCoreTypesWriter } from "./convert-core-types"
+import {
+	getCoreTypesReader,
+	getCoreTypesWriter,
+} from "./convert-core-types.js"
 
 
 const fixture: NodeDocument = {

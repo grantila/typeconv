@@ -2,13 +2,14 @@ import type { NodeDocument } from "core-types"
 import type { JSONSchema7 } from "json-schema"
 import type { PartialOpenApiSchema } from "openapi-json-schema"
 import { load as readYaml, dump as writeYaml } from "js-yaml"
+import { jest } from "@jest/globals"
 
 import {
 	getJsonSchemaReader,
 	getJsonSchemaWriter,
 	getOpenApiReader,
 	getOpenApiWriter,
-} from "./convert-json-schema"
+} from "./convert-json-schema.js"
 
 
 const jsonSchemaFixture: JSONSchema7 = {

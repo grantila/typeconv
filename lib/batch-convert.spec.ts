@@ -1,10 +1,15 @@
-import * as path from 'path'
+import path from "path"
+import { fileURLToPath } from "url"
 
-import { batchConvert, batchConvertGlob } from './batch-convert'
-import { Converter, makeConverter } from './converter'
-import { withConsoleLog, withConsoleMock } from '../test/utils'
-import { getTypeScriptReader } from './convert-typescript'
-import { getJsonSchemaWriter } from './convert-json-schema'
+import { batchConvert, batchConvertGlob } from './batch-convert.js'
+import { Converter, makeConverter } from './converter.js'
+import { withConsoleLog, withConsoleMock } from '../test/utils.js'
+import { getTypeScriptReader } from './convert-typescript.js'
+import { getJsonSchemaWriter } from './convert-json-schema.js'
+
+
+const __filename = fileURLToPath( import.meta.url );
+const __dirname = path.dirname( __filename );
 
 const fixtureDir = path.join( __dirname, '..', 'fixtures' );
 

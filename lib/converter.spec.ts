@@ -1,16 +1,22 @@
-import * as path from 'path'
+import path from "path"
+import { fileURLToPath } from "url"
 
-import { makeConverter } from './converter'
+import { jest } from "@jest/globals"
+
+import { makeConverter } from "./converter.js"
 import {
 	getJsonSchemaReader,
 	getJsonSchemaWriter,
 	getOpenApiWriter,
-} from './convert-json-schema'
-import { getTypeScriptWriter } from './convert-typescript'
-import { getGraphQLReader, getGraphQLWriter } from './convert-graphql'
-import { getSureTypeReader, getSureTypeWriter } from './convert-suretype'
-import { withConsoleWarn } from '../test/utils'
+} from "./convert-json-schema.js"
+import { getTypeScriptWriter } from "./convert-typescript.js"
+import { getGraphQLReader, getGraphQLWriter } from "./convert-graphql.js"
+import { getSureTypeReader, getSureTypeWriter } from "./convert-suretype.js"
+import { withConsoleWarn } from "../test/utils.js"
 
+
+const __filename = fileURLToPath( import.meta.url );
+const __dirname = path.dirname( __filename );
 
 const fixturesDir = path.resolve( __dirname, 'fixtures' );
 
@@ -137,7 +143,7 @@ describe( "converter", ( ) =>
 				} ),
 				{ shortcut: true }
 			);
-			const stFile = path.resolve( fixturesDir, 'validator.st.ts' );
+			const stFile = path.resolve( fixturesDir, 'validator.st.js' );
 
 			const { data, in: _in, out } =
 				await convert( { filename: stFile, cwd: '/' } );

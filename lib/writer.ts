@@ -1,6 +1,7 @@
 import type { NodeDocument, WarnFunction, ConversionResult } from "core-types"
-import type { SyncOrAsync, TypeImplementation } from "./types"
-import type { Reader } from "./reader"
+
+import type { SyncOrAsync, TypeImplementation } from "./types.js"
+import type { Reader } from "./reader.js"
 
 
 export interface WriterOptions

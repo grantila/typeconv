@@ -1,10 +1,10 @@
-import * as path from 'path'
+import path from 'path'
 
 import { map } from "already"
-import * as chalk from "chalk"
+import chalk from "chalk"
 
-import { Converter, Target } from "./converter"
-import { glob, reRootFiles, prettyFile } from './file'
+import { Converter, Target } from "./converter.js"
+import { glob, reRootFiles, prettyFile } from "./file.js"
 
 export interface BatchConvertOptions
 {

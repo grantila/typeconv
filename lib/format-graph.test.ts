@@ -1,7 +1,7 @@
-import { FormatGraph, makePathKey } from './format-graph'
-import { Reader } from './reader'
-import { Writer } from './writer'
-import { TypeImplementation } from './types'
+import { FormatGraph, makePathKey } from "./format-graph.js"
+import { Reader } from "./reader.js"
+import { Writer } from "./writer.js"
+import { TypeImplementation } from "./types.js"
 
 
 function fakeReader(

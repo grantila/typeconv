@@ -1,5 +1,7 @@
 import type { NodeDocument } from "core-types"
-import { getGraphQLReader, getGraphQLWriter } from "./convert-graphql"
+import { jest } from "@jest/globals"
+
+import { getGraphQLReader, getGraphQLWriter } from "./convert-graphql.js"
 
 
 const schema = `"Foo type"

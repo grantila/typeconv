@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`batch-convert batchConvert 1`] = `
-Object {
+{
   "$comment": "Generated from types1.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
-  "definitions": Object {
-    "Foo": Object {
+  "definitions": {
+    "Foo": {
       "additionalProperties": false,
-      "properties": Object {
-        "bar": Object {
+      "properties": {
+        "bar": {
           "title": "Foo.bar",
           "type": "string",
         },
-        "baz": Object {
-          "anyOf": Array [
-            Object {
+        "baz": {
+          "anyOf": [
+            {
               "title": "Foo.baz",
               "type": "number",
             },
-            Object {
+            {
               "$ref": "#/definitions/Foo",
               "title": "Foo.baz",
             },
@@ -28,25 +28,25 @@ Object {
           "title": "Foo.baz",
         },
       },
-      "required": Array [
+      "required": [
         "bar",
         "baz",
       ],
       "title": "Foo",
       "type": "object",
     },
-    "Foo2": Object {
+    "Foo2": {
       "additionalProperties": false,
-      "properties": Object {
-        "bak": Object {
-          "items": Object {
+      "properties": {
+        "bak": {
+          "items": {
             "type": "boolean",
           },
           "title": "Foo2.bak",
           "type": "array",
         },
       },
-      "required": Array [
+      "required": [
         "bak",
       ],
       "title": "Foo2",
@@ -57,18 +57,18 @@ Object {
 `;
 
 exports[`batch-convert batchConvert 2`] = `
-Object {
+{
   "$comment": "Generated from sub/types2.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
-  "definitions": Object {
-    "SubDirType": Object {
+  "definitions": {
+    "SubDirType": {
       "additionalProperties": false,
-      "properties": Object {
-        "name": Object {
+      "properties": {
+        "name": {
           "title": "SubDirType.name",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "name",
       ],
       "title": "SubDirType",
@@ -79,23 +79,23 @@ Object {
 `;
 
 exports[`batch-convert batchConvert verbose 1`] = `
-Object {
+{
   "$comment": "Generated from types1.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
-  "definitions": Object {
-    "Foo": Object {
+  "definitions": {
+    "Foo": {
       "additionalProperties": false,
-      "properties": Object {
-        "bar": Object {
+      "properties": {
+        "bar": {
           "title": "Foo.bar",
           "type": "string",
         },
-        "baz": Object {
-          "anyOf": Array [
-            Object {
+        "baz": {
+          "anyOf": [
+            {
               "title": "Foo.baz",
               "type": "number",
             },
-            Object {
+            {
               "$ref": "#/definitions/Foo",
               "title": "Foo.baz",
             },
@@ -106,25 +106,25 @@ Object {
           "title": "Foo.baz",
         },
       },
-      "required": Array [
+      "required": [
         "bar",
         "baz",
       ],
       "title": "Foo",
       "type": "object",
     },
-    "Foo2": Object {
+    "Foo2": {
       "additionalProperties": false,
-      "properties": Object {
-        "bak": Object {
-          "items": Object {
+      "properties": {
+        "bak": {
+          "items": {
             "type": "boolean",
           },
           "title": "Foo2.bak",
           "type": "array",
         },
       },
-      "required": Array [
+      "required": [
         "bak",
       ],
       "title": "Foo2",
@@ -135,18 +135,18 @@ Object {
 `;
 
 exports[`batch-convert batchConvert verbose 2`] = `
-Object {
+{
   "$comment": "Generated from sub/types2.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
-  "definitions": Object {
-    "SubDirType": Object {
+  "definitions": {
+    "SubDirType": {
       "additionalProperties": false,
-      "properties": Object {
-        "name": Object {
+      "properties": {
+        "name": {
           "title": "SubDirType.name",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "name",
       ],
       "title": "SubDirType",
@@ -157,30 +157,30 @@ Object {
 `;
 
 exports[`batch-convert batchConvert verbose 3`] = `
-Array [
+[
   "fixtures",
-  Array [
+  [
     "[typeconv] types1.ts -> stdout, 100% types converted (2/2)",
   ],
-  Array [
+  [
     "[typeconv] sub/types2.ts -> stdout, 100% types converted (1/1)",
   ],
 ]
 `;
 
 exports[`batch-convert batchConvertGlob 1`] = `
-Object {
+{
   "$comment": "Generated from sub/types2.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
-  "definitions": Object {
-    "SubDirType": Object {
+  "definitions": {
+    "SubDirType": {
       "additionalProperties": false,
-      "properties": Object {
-        "name": Object {
+      "properties": {
+        "name": {
           "title": "SubDirType.name",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "name",
       ],
       "title": "SubDirType",
@@ -191,23 +191,23 @@ Object {
 `;
 
 exports[`batch-convert batchConvertGlob 2`] = `
-Object {
+{
   "$comment": "Generated from types1.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)",
-  "definitions": Object {
-    "Foo": Object {
+  "definitions": {
+    "Foo": {
       "additionalProperties": false,
-      "properties": Object {
-        "bar": Object {
+      "properties": {
+        "bar": {
           "title": "Foo.bar",
           "type": "string",
         },
-        "baz": Object {
-          "anyOf": Array [
-            Object {
+        "baz": {
+          "anyOf": [
+            {
               "title": "Foo.baz",
               "type": "number",
             },
-            Object {
+            {
               "$ref": "#/definitions/Foo",
               "title": "Foo.baz",
             },
@@ -218,25 +218,25 @@ Object {
           "title": "Foo.baz",
         },
       },
-      "required": Array [
+      "required": [
         "bar",
         "baz",
       ],
       "title": "Foo",
       "type": "object",
     },
-    "Foo2": Object {
+    "Foo2": {
       "additionalProperties": false,
-      "properties": Object {
-        "bak": Object {
-          "items": Object {
+      "properties": {
+        "bak": {
+          "items": {
             "type": "boolean",
           },
           "title": "Foo2.bak",
           "type": "array",
         },
       },
-      "required": Array [
+      "required": [
         "bak",
       ],
       "title": "Foo2",

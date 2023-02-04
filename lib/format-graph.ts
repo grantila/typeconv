@@ -1,6 +1,6 @@
-import { TypeImplementation } from "./types"
-import { Reader } from "./reader"
-import { Writer } from "./writer"
+import { TypeImplementation } from "./types.js"
+import { Reader } from "./reader.js"
+import { Writer } from "./writer.js"
 
 
 type TI = TypeImplementation;

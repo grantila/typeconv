@@ -3,12 +3,12 @@ import {
 	convertTypeScriptToCoreTypes,
 	FromTsOptions,
 	ToTsOptions,
-} from 'core-types-ts'
+} from "core-types-ts"
 
-import { Reader } from "./reader"
-import { Writer } from "./writer"
-import { userPackage, userPackageUrl } from "./package"
-import { registerReader, registerWriter } from './format-graph'
+import { Reader } from "./reader.js"
+import { Writer } from "./writer.js"
+import { userPackage, userPackageUrl } from "./package.js"
+import { registerReader, registerWriter } from "./format-graph.js"
 
 
 export function getTypeScriptReader( tsOptions?: FromTsOptions ): Reader

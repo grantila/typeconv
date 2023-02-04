@@ -1,19 +1,18 @@
 import { promises as fsPromises } from "fs"
-import * as path from "path"
+import path from "path"
 
-import * as execa from "execa"
-import * as tempy from "tempy"
+import { execa } from "execa"
+import { temporaryDirectory } from "tempy"
 
 describe( "cli", ( ) =>
 {
 	it( "should convert typescript to graphql", async ( ) =>
 	{
-		const dir = tempy.directory( );
+		const dir = temporaryDirectory( );
 		await execa(
 			"node",
 			[
-				"node_modules/.bin/ts-node",
-				"lib/bin/typeconv.ts",
+				"dist/bin/typeconv.js",
 				"--verbose",
 				"-f",
 				"ts",
