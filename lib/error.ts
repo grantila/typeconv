@@ -1,4 +1,4 @@
-import { codeFrameColumns } from "@babel/code-frame"
+import { codeFrameColumns } from "awesome-code-frame"
 import {
 	CoreTypesErrorMeta,
 	locationToLineColumn,
