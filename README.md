@@ -199,6 +199,48 @@ Usage: typeconv [options] file ...
      --(no-)ts-disable-lint-header  Output comments for disabling linting (default: true)
      --(no-)ts-descriptive-header   Output the header comment (default: true)
      --(no-)ts-use-unknown          Use 'unknown' type instead of 'any' (default: true)
+     --ts-non-exported <method>     Strategy for non-exported types (default: include-if-referenced)
+
+                                       Values:
+                                          fail                   Fail conversion
+                                          ignore                 Don't include non-exported types,
+                                                                 even if referenced
+                                          include                Include non-exported types
+                                          inline                 Don't include non-exported types,
+                                                                 inline them if necessary.
+                                                                 Will fail on cyclic types
+                                          include-if-referenced  Include non-exported types only if they
+                                                                 are referenced from exported types
+
+     --ts-namespaces <method>       Namespace strategy. (default: ignore)
+
+                                       Values:
+                                          ignore           Ignore namespaces entirely (default).
+                                                           - When converting from TypeScript, types in namespaces
+                                                           aren't exported.
+                                                           - When converting to TypeScript, no attempt to
+                                                           reconstruct namespaces is performed.
+                                          hoist            When converting from TypeScript, hoist types inside
+                                                           namespaces to top-level, so that the types are
+                                                           included, but without their namespace.
+                                                           This can cause conflicts, in which case deeper
+                                                           declarations will be dropped in favor of more top-
+                                                           level declarations.
+                                                           In case of same-level (namespace depth) declarations
+                                                           with the same name, only one will be exported in a
+                                                           non-deterministic manner.
+                                          dot              When converting from TypeScript, join the namespaces
+                                                           and the exported type with a dot (.).
+                                                           When converting to TypeScript, try to reconstruct
+                                                           namespaces by splitting the name on dot (.).
+                                          underscore       When converting from TypeScript, join the namespaces
+                                                           and the exported type with an underscore (_).
+                                                           When converting to TypeScript, try to reconstruct
+                                                           namespaces by splitting the name on underscore (_).
+                                          reconstruct-all  When converting to TypeScript, try to reconstruct
+                                                           namespaces by splitting the name on both dot and
+                                                           underscore.
+
    GraphQL
      --gql-unsupported <method>     Method to use for unsupported types
 
@@ -222,9 +264,16 @@ Usage: typeconv [options] file ...
      --st-ref-method <method>       SureType reference export method (default: provided)
 
                                        Values:
-                                          no-refs   Don't ref anything, inline all types.
+                                          no-refs   Don't ref anything, inline all types
                                           provided  Reference types that are explicitly exported
                                           ref-all   Ref all provided types and those with names
+
+     --st-missing-ref <method>      What to do when detecting an unresolvable reference (default: warn)
+
+                                       Values:
+                                          ignore  Ignore; skip type or cast to any
+                                          warn    Same as 'ignore', but warn
+                                          error   Fail conversion
 
      --(no-)st-inline-types         Inline pretty typescript types aside validator code (default: true)
      --(no-)st-export-type          Export the deduced types (or the pretty types,

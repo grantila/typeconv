@@ -38,8 +38,8 @@ describe( "batch-convert", ( ) =>
 		);
 
 		expect( log.mock.calls.length ).toBe( 2 );
-		const types1 = JSON.parse( log.mock.calls[ 0 ] );
-		const types2 = JSON.parse( log.mock.calls[ 1 ] );
+		const types1 = JSON.parse( log.mock.calls[ 0 ] as any );
+		const types2 = JSON.parse( log.mock.calls[ 1 ] as any );
 
 		expect( types1 ).toMatchSnapshot( );
 		expect( types2 ).toMatchSnapshot( );
@@ -62,8 +62,8 @@ describe( "batch-convert", ( ) =>
 		);
 
 		expect( log.mock.calls.length ).toBe( 2 );
-		const types1 = JSON.parse( log.mock.calls[ 0 ] );
-		const types2 = JSON.parse( log.mock.calls[ 1 ] );
+		const types1 = JSON.parse( log.mock.calls[ 0 ] as any );
+		const types2 = JSON.parse( log.mock.calls[ 1 ] as any );
 
 		expect( types1 ).toMatchSnapshot( );
 		expect( types2 ).toMatchSnapshot( );
@@ -74,7 +74,7 @@ describe( "batch-convert", ( ) =>
 			.map( ( line, i ) =>
 				i === 0
 				// Absolute local files system, must be aligned with CI/CD
-				? path.basename( line[ 0 ] )
+				? path.basename( line[ 0 ] as any )
 				: line
 			)
 		).toMatchSnapshot( );
@@ -94,8 +94,8 @@ describe( "batch-convert", ( ) =>
 		);
 
 		expect( log.mock.calls.length ).toBe( 2 );
-		const types1 = JSON.parse( log.mock.calls[ 0 ] );
-		const types2 = JSON.parse( log.mock.calls[ 1 ] );
+		const types1 = JSON.parse( log.mock.calls[ 0 ] as any );
+		const types2 = JSON.parse( log.mock.calls[ 1 ] as any );
 
 		expect( types1 ).toMatchSnapshot( );
 		expect( types2 ).toMatchSnapshot( );

@@ -7,9 +7,9 @@ import { fileURLToPath } from "url"
 import chalk from "chalk"
 import { oppa } from "oppa"
 import { stripAnnotations } from "core-types"
-import { JsonSchemaToSuretypeOptions } from 'core-types-suretype'
-import { FromTsOptions } from "core-types-ts"
-import { ExportRefMethod } from "suretype"
+import type { JsonSchemaToSuretypeOptions } from "core-types-suretype"
+import type { FromTsOptions, ToTsOptions } from "core-types-ts"
+import type { ExportRefMethod } from "suretype"
 
 import { makeConverter } from "../converter.js"
 import { batchConvertGlob } from "../batch-convert.js"
@@ -202,6 +202,52 @@ const oppaInstance =
 			] },
 		],
 	} )
+	.add( {
+		name: "ts-namespaces",
+		type: "string",
+		argumentName: "method",
+		description: [
+			"Namespace strategy."
+		],
+		default: "ignore",
+		values: [
+			{ "ignore": [
+				"Ignore namespaces entirely (default).",
+				"- When converting from TypeScript, types in namespaces",
+				"aren't exported.",
+				"- When converting to TypeScript, no attempt to",
+				"reconstruct namespaces is performed.",
+			] },
+			{ "hoist": [
+				"When converting from TypeScript, hoist types inside",
+				"namespaces to top-level, so that the types are",
+				"included, but without their namespace.",
+				"This can cause conflicts, in which case deeper",
+				"declarations will be dropped in favor of more top-",
+				"level declarations.",
+				"In case of same-level (namespace depth) declarations",
+				"with the same name, only one will be exported in a",
+				"non-deterministic manner.",
+			] },
+			{ "dot": [
+				"When converting from TypeScript, join the namespaces",
+				"and the exported type with a dot (.).",
+				"When converting to TypeScript, try to reconstruct",
+				"namespaces by splitting the name on dot (.).",
+			] },
+			{ "underscore": [
+				"When converting from TypeScript, join the namespaces",
+				"and the exported type with an underscore (_).",
+				"When converting to TypeScript, try to reconstruct",
+				"namespaces by splitting the name on underscore (_).",
+			] },
+			{ "reconstruct-all": [
+				"When converting to TypeScript, try to reconstruct",
+				"namespaces by splitting the name on both dot and",
+				"underscore.",
+			] },
+		],
+	} )
 
 	.group( {
 		name: "GraphQL",
@@ -364,6 +410,7 @@ const {
 	"ts-descriptive-header": tsDescriptiveHeader,
 	"ts-use-unknown": tsUseUnknown,
 	"ts-non-exported": tsNonExported,
+	"ts-namespaces": tsNamespaces,
 
 	// JSON Schema
 
@@ -417,6 +464,29 @@ if ( !ensureType< FromTsOptions[ 'nonExported' ] >(
 ) )
 	throw new Error( );
 
+
+if ( !ensureType<
+		'ignore' | 'hoist' | 'dot' | 'underscore' | 'reconstruct-all'
+	>(
+	tsNamespaces,
+	'ts-namespaces',
+	[ 'ignore', 'hoist', 'dot', 'underscore', 'reconstruct-all' ],
+	printHelp
+) )
+	throw new Error( );
+
+const toTsNamespaces: ToTsOptions[ 'namespaces' ] =
+	tsNamespaces === 'reconstruct-all' ? 'all' :
+	tsNamespaces === 'dot' ? 'dot' :
+	tsNamespaces === 'underscore' ? 'underscore' :
+	'ignore';
+
+const fromTsNamespaces: FromTsOptions[ 'namespaces' ] =
+	tsNamespaces === 'hoist' ? 'hoist' :
+	tsNamespaces === 'dot' ? 'join-dot' :
+	tsNamespaces === 'underscore' ? 'join-underscore' :
+	'ignore';
+
 if ( !ensureType< ExportRefMethod | undefined >(
 	stRefMethod,
 	'ref-method',
@@ -438,6 +508,7 @@ const getReader = ( ): Reader =>
 	return fromType === 'ts'
 		? getTypeScriptReader( {
 			nonExported: tsNonExported,
+			namespaces: fromTsNamespaces,
 		} )
 		: fromType === 'jsc'
 		? getJsonSchemaReader( )
@@ -464,6 +535,7 @@ const getWriter = ( ): Writer =>
 			declaration: tsDeclaration,
 			noDisableLintHeader: tsDisableLintHeader,
 			noDescriptiveHeader: tsDescriptiveHeader,
+			namespaces: toTsNamespaces,
 			useUnknown: tsUseUnknown,
 		} )
 		: toType === 'jsc'
