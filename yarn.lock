@@ -3005,9 +3005,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-types-suretype@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "core-types-suretype@npm:3.1.0"
+"core-types-suretype@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "core-types-suretype@npm:3.1.1"
   dependencies:
     "@types/json-schema": ^7.0.11
     core-types: ^2.0.1
@@ -3019,7 +3019,7 @@ __metadata:
     suretype: ^3.2.0
     toposort: ^2.0.2
     typescript: ^4.9.5
-  checksum: 665e1e4dd65d9b49b524a8921aaa6230c8e829a3e48ca7f54ce75ab7ed603e037077fbee23c070caba49c31c6e3d13d51b2f114dc4d23bacf283593d4b1d1022
+  checksum: 856ada4b64d3dcb63ab4cfb557a9c2fe5652f4e16247077fd3ce1da4165f7fba6aad5a75a878de0ee0a5b58c87fcae117d30084f501776cacbf4161339c726c2
   languageName: node
   linkType: hard
 
@@ -6312,7 +6312,7 @@ __metadata:
     core-types: ^2.0.1
     core-types-graphql: ^2.0.0
     core-types-json-schema: ^2.0.0
-    core-types-suretype: ^3.1.0
+    core-types-suretype: ^3.1.1
     core-types-ts: ^3.4.0
     cz-conventional-changelog: ^3.3.0
     execa: ^6.1.0
