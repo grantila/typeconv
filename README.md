@@ -2,7 +2,6 @@
 [![downloads][downloads-image]][npm-url]
 [![build status][build-image]][build-url]
 [![coverage status][coverage-image]][coverage-url]
-[![Language grade: JavaScript][lgtm-image]][lgtm-url]
 [![Node.JS version][node-version]][node-url]
 
 
@@ -470,12 +469,10 @@ The `getSureTypeWriter` takes an optional
 [npm-image]: https://img.shields.io/npm/v/typeconv.svg
 [npm-url]: https://npmjs.org/package/typeconv
 [downloads-image]: https://img.shields.io/npm/dm/typeconv.svg
-[build-image]: https://img.shields.io/github/workflow/status/grantila/typeconv/Master.svg
+[build-image]: https://img.shields.io/github/actions/workflow/status/grantila/typeconv/master.yml?branch=master
 [build-url]: https://github.com/grantila/typeconv/actions?query=workflow%3AMaster
 [coverage-image]: https://coveralls.io/repos/github/grantila/typeconv/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/grantila/typeconv?branch=master
-[lgtm-image]: https://img.shields.io/lgtm/grade/javascript/g/grantila/typeconv.svg?logo=lgtm&logoWidth=18
-[lgtm-url]: https://lgtm.com/projects/g/grantila/typeconv/context:javascript
 [node-version]: https://img.shields.io/node/v/typeconv
 [node-url]: https://nodejs.org/en/
 
