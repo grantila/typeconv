@@ -40,6 +40,13 @@ This generates `gql-schemas/*.graphql` for each `.ts` file in `types/` (and sub-
 When converting *from* SureType, typeconv will extract all *exported* validators.
 
 
+## Versions
+
+Since v2:
+ * The package is a pure ESM module, no more CommonJS support. This will likely not affect CLI usages.
+ * Node 12 support is dropped.
+
+
 # Contents
 
  * [Conversion example](#conversion-example)
