@@ -3033,13 +3033,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-types-ts@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "core-types-ts@npm:3.3.0"
+"core-types-ts@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "core-types-ts@npm:3.4.0"
   dependencies:
     core-types: ^2.0.1
     typescript: ^4.9.5
-  checksum: f16a340f65e0ea6d4aa8241508de064fb3cc3f87f4ed5ae80a14ab34170a8bd0eae92ea537c4fb702e392df88c13ff6a8858823c3a3707007960c564223007b5
+  checksum: 619877938a1879d564c29fb5a83af6140c4a4b6e10df421472a7d35bd50c2fb62eac06617d26e6cf8c2883a3b874c2896e38b7dd17c6a21394122cf03ddf93d5
   languageName: node
   linkType: hard
 
@@ -6313,7 +6313,7 @@ __metadata:
     core-types-graphql: ^2.0.0
     core-types-json-schema: ^2.0.0
     core-types-suretype: ^3.1.0
-    core-types-ts: ^3.3.0
+    core-types-ts: ^3.4.0
     cz-conventional-changelog: ^3.3.0
     execa: ^6.1.0
     globby: ^13.1.3
