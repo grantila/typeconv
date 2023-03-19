@@ -1,4 +1,4 @@
-import { jest } from "@jest/globals"
+import { jest, expect, describe, it } from "@jest/globals"
 
 import { ensureType, stringify } from "./utils.js"
 
