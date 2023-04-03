@@ -148,6 +148,15 @@ const oppaInstance =
 		description: "Removes all annotations (descriptions, comments, ...)",
 		default: false,
 	} )
+	.add( {
+		name: 'merge-objects',
+		type: 'boolean',
+		description: [
+			"When simplifying the types, merge intersections of objects",
+			"into single self-contained objects.",
+			"This defaults to true when converting to JSON Schema/OpenAPI."
+		],
+	} )
 
 	.group( {
 		name: "TypeScript",
@@ -403,6 +412,7 @@ const {
 	"output-directory": outputDirectory,
 	"output-extension": outputExtension,
 	"strip-annotations": doStripAnnotations,
+	"merge-objects": mergeObjects,
 
 	// TypeScript
 	"ts-declaration": tsDeclaration,
@@ -464,6 +474,7 @@ if ( !ensureType< FromTsOptions[ 'nonExported' ] >(
 ) )
 	throw new Error( );
 
+const mergeObjectsDefault = toType === 'jsc' || toType === 'oapi';
 
 if ( !ensureType<
 		'ignore' | 'hoist' | 'dot' | 'underscore' | 'reconstruct-all'
@@ -578,6 +589,7 @@ const getWriter = ( ): Writer =>
 				!doStripAnnotations ? { } :
 				{ map: ( node => stripAnnotations( node ) ) }
 			),
+			mergeObjects: mergeObjects ?? mergeObjectsDefault,
 			cwd,
 			shortcut,
 		}

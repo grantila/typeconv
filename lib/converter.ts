@@ -83,6 +83,14 @@ export interface ConvertOptions
 	simplify?: boolean;
 
 	/**
+	 * When simplifying (which is implied by this option), and-types of objects
+	 * will be merged into one self-contained object.
+	 * This is useful for type systems that don't treat object intersections the
+	 * same way e.g. TypeScript does.
+	 */
+	mergeObjects?: boolean;
+
+	/**
 	 * Custom map function for transforming each type after it has been
 	 * converted *from* the source type (and after it has been simplified),
 	 * but before it's written to the target type system.
@@ -303,7 +311,7 @@ export function makeConverter(
 			const simplifiedDoc =
 				options?.simplify === false
 				? doc
-				: simplify( doc );
+				: simplify( doc, { mergeObjects: options?.mergeObjects } );
 
 			const { map, filter, transform } = options ?? { };
 
